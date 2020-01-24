@@ -36,8 +36,8 @@
 <div id="chartdiv" style="width: 100%; height: 400px;"></div>
 
 @{
-    var countries = new Dictionary<Country, double> { };
-    var continents = new Dictionary<Continent, Dictionary<Species, double>> { };
+    var countries = new Dictionary<ELO.Models.Country, double> { };
+    var continents = new Dictionary<ELO.Models.Continent, Dictionary<Species, double>> { };
     foreach (var country in Model)
     {
         foreach (var export in country.Exports)
@@ -85,7 +85,7 @@
     List<string> l = new List<string> { };
     List<string> t = new List<string> { "{\"id\": \"chile\",\"svgPath\": targetSVG,\"title\": \"Chile\",\"latitude\": -33.4489,\"longitude\": -70.6693,\"scale\": 1}" };
     List<string> ble = new List<string> { };
-    foreach (KeyValuePair<Country, double> cnt in countries)
+    foreach (KeyValuePair<ELO.Models.Country, double> cnt in countries)
     {
         i.Add('"' + cnt.Key.ISO2 + '"');
         l.Add("{\"latitudes\": [-33.4489, " + cnt.Key.Latitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en")) + "],\"longitudes\":[-70.6693, " + cnt.Key.Longitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en")) + "]}");
@@ -98,7 +98,7 @@
     string bli = String.Join(",", ble);
 
     List<string> p = new List<string> { };
-    foreach (KeyValuePair<Continent, Dictionary<Species, double>> cnt in continents)
+    foreach (KeyValuePair<ELO.Models.Continent, Dictionary<Species, double>> cnt in continents)
     {
         p.Add("{\"title\":\"" + cnt.Key.Name + "\",\"latitude\":" + cnt.Key.Latitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en")) + ",\"longitude\":" + cnt.Key.Longitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en")) + ",\"width\":250,\"height\":250,\"pie\":{\"type\":\"pie\",\"theme\":\"light\",\"pullOutRadious\":0,\"dataProvider\":[{\"category\":\"Erizo\",\"value\":" + cnt.Value[Species.Erizo] + "},{\"category\":\"Almeja\",\"value\":" + cnt.Value[Species.Almeja] + "},{\"category\":\"Luga\",\"value\":" + cnt.Value[Species.Luga] + "}],\"labelText\":\"[[value]]%\",\"valueField\":\"value\",\"titleField\":\"category\"}}");
     }

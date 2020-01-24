@@ -9,7 +9,7 @@
 @foreach (var lib in Model)
 {
     var l = new Lib();
-    if(libs.Any(m => m.library.StartsWith($"{lib}@") && m.files.Any()))
+    if (libs.Any(m => m.library.StartsWith($"{lib}@") && m.files.Any()))
     {
         l = libs.Single(m => m.library.StartsWith($"{lib}@") && m.files.Any());
     }
@@ -60,14 +60,12 @@
                 if (file.Contains(".css"))
                 {
                     @this.LO_StyleBlock(@<link href="@($"{Context.Request.Scheme}://{url}/{l.library}/{file}")" rel="stylesheet"
-                                               asp-fallback-href="@($"{l.destination.Replace("wwwroot", "")}{file}")"
-                                               asp-subresource-integrity-href="@($"{l.destination.Replace("wwwroot", "")}{file}")" />)
+                                               asp-fallback-href="@($"{l.destination.Replace("wwwroot", "")}{file}")" />)
                 }
                 else if (file.Contains(".js"))
                 {
                     @this.LO_ScriptBlock(@<script src="@($"{Context.Request.Scheme}://{url}/{l.library}/{file}")"
-                                                  asp-fallback-src="@($"{l.destination.Replace("wwwroot", "")}{file}")"
-                                                  asp-subresource-integrity-src="@($"{l.destination.Replace("wwwroot", "")}{file}")"></script>)
+                                                  asp-fallback-src="@($"{l.destination.Replace("wwwroot", "")}{file}")"></script>)
                 }
             }
         }
@@ -84,3 +82,6 @@
         }
     </environment>
 }
+
+@*asp-subresource-integrity-href="@($"{l.destination.Replace("wwwroot", "")}{file}")"
+asp-subresource-integrity-src="@($"{l.destination.Replace("wwwroot", "")}{file}")"*@

@@ -23,12 +23,13 @@
 
   <ItemGroup>
     <PackageReference Include="AspNetCore.IServiceCollection.AddIUrlHelper" Version="1.1.0" />
-    <PackageReference Include="Boxed.AspNetCore.TagHelpers" Version="3.1.0" />
+    <PackageReference Include="Boxed.AspNetCore.TagHelpers" Version="3.2.0" />
     <PackageReference Include="HtmlAgilityPack" Version="1.11.9" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" PrivateAssets="All" />
     <PackageReference Include="Pluralize.NET.Core" Version="1.0.0" />
+    <PackageReference Include="Schema.NET" Version="7.0.1" />
     <PackageReference Include="Sendgrid" Version="9.11.0" />
   </ItemGroup>
 

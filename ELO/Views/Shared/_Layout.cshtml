@@ -14,10 +14,10 @@
             gtag('config', 'UA-46146363-4');
         </script>
         <meta name="author" content="Epic Solutions" />
-        @*<open-graph-website site-name="BiblioMit"
+        <open-graph-website site-name="ELO Chile"
                                     title="@ViewData["Title"]"
                                     main-image="@(new OpenGraphImage(
-                Url.Content("~/android-chrome-512x512.png"),
+                new Uri($"{Context.Request.Scheme}://{Context.Request.Host}/android-chrome-512x512.png"),
                 "image/png",
                 1200,
                 630))"
@@ -40,7 +40,7 @@
                 Description = "Programa Tecnológico Producción de Semilla y Repoblamiento de Erizo Rojo y Loco para Potenciar la Diversificación de la Acuicultura Nacional",
                 CreatorUsername = "@elochile",
                 SiteUsername = "@elochile"
-            })*@
+            })
     </environment>
     <link href="https://fonts.googleapis.com/css?family=Poppins:300,500,600" rel="stylesheet">
     <!--

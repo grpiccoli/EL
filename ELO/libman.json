@@ -3,7 +3,7 @@
   "defaultProvider": "unpkg",
   "libraries": [
     {
-      "library": "@fortawesome/fontawesome-free@5.7.2",
+      "library": "@fortawesome/fontawesome-free@5.12.0",
       "destination": "wwwroot/lib/@fortawesome/fontawesome-free/",
       "files": [
         "css/all.min.css",
@@ -18,7 +18,7 @@
       ]
     },
     {
-      "library": "bootstrap@3.3.7",
+      "library": "bootstrap@3.4.1",
       "destination": "wwwroot/lib/bootstrap/",
       "files": [
         "dist/css/bootstrap.min.css",
@@ -26,7 +26,7 @@
       ]
     },
     {
-      "library": "bootstrap-select@1.13.5",
+      "library": "bootstrap-select@1.13.12",
       "destination": "wwwroot/lib/bootstrap-select/",
       "files": [
         "dist/css/bootstrap-select.min.css",
@@ -35,7 +35,7 @@
       ]
     },
     {
-      "library": "jquery@3.3.1",
+      "library": "jquery@3.4.1",
       "destination": "wwwroot/lib/jquery/",
       "files": [ "dist/jquery.min.js" ]
     }

@@ -1,0 +1,546 @@
+body {
+	background: $primary-color;
+}
+.main-wrapper-first {
+	width: 68.75%;
+	margin: 0 auto;
+	margin-top: 6rem;
+	@include media-breakpoint-up(xl) {
+		width: 80%;
+	}
+	@include media-breakpoint-down(lg) {
+		width: 90%;
+	}
+	@include media-breakpoint-down(sm) {
+		margin-top: 3rem;
+		width: 97%;
+	}
+}
+.main-wrapper {
+	width: 68.75%;
+	margin: 0 auto;
+	@include media-breakpoint-up(xl) {
+		width: 80%;
+	}
+	@include media-breakpoint-down(lg) {
+		width: 90%;
+	}
+	@include media-breakpoint-down(sm) {
+		width: 97%;
+	}
+}
+.section-gap {
+	padding: 120px 0;
+}
+.section-title {
+	padding-bottom: 30px;
+	h2 {
+		margin-bottom: 5px;
+	}
+}
+.mt-sm-30 {
+	@include media-breakpoint-down (sm) {
+		margin-top: 30px;
+	}
+}
+.mt-sm-20 {
+	@include media-breakpoint-down (sm) {
+		margin-top: 20px;
+	}
+}
+.primary-btn {
+	line-height: 40px;
+	padding: 0 30px;
+	border-radius: 20px;
+	background: transparent;
+	border: 1px solid #eee;
+	color: $primary-color;
+	display: inline-block;
+	font-weight: 500;
+	position: relative;
+	@include transition();
+	cursor: pointer;
+	text-transform: uppercase;
+	-moz-background-clip: padding;
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+	&:focus {
+		outline: none;
+	}
+	&:hover {
+		background: $primary-color;
+		border: 1px solid $primary-color;
+		color: $white;
+	}
+}
+//--------- Start Banner Area -----------//
+.banner-area {
+	background: #7abf01;
+	.height {
+		min-height: 500px;
+		@include media-breakpoint-down (md) {
+			height: 600px;
+		}
+	}
+	.generic-height {
+		height: 300px;
+	}
+	.banner-content {
+		h1 {
+			font-weight: 600;
+			margin-bottom: 20px;
+			color: #8dda06;
+			text-shadow: 0px 10px 11px rgba(102, 158, 2, 0.3);
+			@include media-breakpoint-down (md) {
+				br {
+					display: none;
+				}
+			}
+		}
+	}
+}
+
+.banner-video {
+	position: relative;
+	min-height: 300px;
+	background: url(../img/video-bg.jpg) no-repeat center center/cover;
+	box-shadow: 0.872px 9.962px 30px 0px rgba(0, 0, 0, 0.3);
+	.overlay-bg {
+		background: rgba($primary-color, .75);
+	}
+	.play-btn {
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		z-index: 2;
+	}
+}
+//--------- End Banner Area -----------//
+//----------- Start Feature Area ------------//
+.featured-area {
+	background: $white;
+	padding: 90px 0 120px 0;
+	.single-feature {
+		margin-top: 30px;
+		padding: 80px 50px;
+		@include media-breakpoint-down (md) {
+			padding: 50px 15px;
+		}
+		border-radius: 3px;
+		border: 1px solid #eee;
+		@include transition();
+		span {
+			font-size: 36px;
+			font-weight: 600;
+			@include transition();
+		}
+		h3 {
+			font-weight: 600;
+			margin-top: 40px;
+			margin-bottom: 20px;
+		}
+		p {
+			margin-bottom: 40px;
+		}
+		a {
+			font-weight: 500;
+			color: $title-color;
+		}
+		&:hover {
+			border: 1px solid transparent;
+			box-shadow: 0px 20px 48.5px 1.5px rgba(153, 153, 153, 0.1);
+			span {
+				color: $primary-color;
+			}
+		}
+	}
+}
+
+//----------- End Feature Area ------------//
+//---------- Start Testimonial Area ----------//
+.testimonial-area {
+	background: url(../img/test-bg.jpg) no-repeat center center/cover;
+	.overlay-bg {
+		background: rgba($black, .80);
+	}
+	.active-testimonial-carousel {
+		.item {
+			padding: 60px 50px;
+			background: $white;
+			border-radius: 3px;
+			h3 {
+				font-weight: 600;
+				margin-bottom: 15px;
+			}
+			p {
+				margin-bottom: 30px;
+			}
+			a {
+				font-weight: 500;
+				text-transform: uppercase;
+				color: $title-color;
+			}
+		}
+	}
+	.next-trigger, .prev-trigger {
+		width: 40px;
+		background: $white;
+		border: 1px solid #eee;
+		text-align: center;
+		@include transition();
+		cursor: pointer;
+		span {
+			line-height: 40px;
+			@include transition();
+			font-weight: 600;
+		}
+		&:hover {
+			background: $primary-color;
+			border: 1px solid $primary-color;
+			span {
+				color: $white;
+			}
+		}
+	}
+	.prev-trigger {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		left: -40px;
+		@include media-breakpoint-down (lg) {
+			left: 0;
+		}
+		@include media-breakpoint-down (md) {
+			left: 30%;
+			top: 110%;
+			transform: translateY(0%);
+		}
+	}
+	.next-trigger {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: -40px;
+		@include media-breakpoint-down (lg) {
+			right: 0;
+		}
+		@include media-breakpoint-down (md) {
+			right: 30%;
+			top: 110%;
+			transform: translateY(0%);
+		}
+	}
+}
+//---------- End Testimonial Area ----------//
+//--------- Start Projects Area -----------//
+.project-area {
+	padding: 90px 0 120px 0;
+	background: $white;
+	.single-project {
+		height: 400px;
+		position: relative;
+		border-radius: 3px;
+		overflow: hidden;
+		margin-top: 30px;
+		background-repeat: no-repeat !important;
+		background-size: cover !important;
+		background-position: center center !important;
+		.overlay-content {
+			background: rgba($white, .9);
+			text-align: center;
+			padding: 30px;
+			@include flexbox();
+			@include flex-direction(column);
+			@include justify-content(end);
+			@include transition();
+			transition-timing-function: cubic-bezier(.39,.92,.69,.65);
+			transform: scaleY(0);
+			transform-origin: top;
+			h4 {
+				font-size: 20px;
+				font-weight: 600;
+				margin-bottom: 15px;
+			}
+		}
+		&:hover {
+			.overlay-content {
+				transform: scaleY(1);
+			}
+		}
+	}
+}
+//--------- End Projects Area -----------//
+//--------- Start Beginning Area -----------//
+
+.beginning-area {
+	background: #f9faff;
+	position: relative;
+	&:before {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 50%;
+		height: 100%;
+		background: url(../img/be-bg.jpg) no-repeat center center/cover;
+	}
+	&:after {
+		content: "";
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 50%;
+		height: 100%;
+		background: rgba($black, .8);
+		z-index: 2;
+	}
+	.begining-content {
+		position: relative;
+		z-index: 5;
+		padding: 40px 50px;
+		background: $white;
+		box-shadow: 0px 20px 48.5px 1.5px rgba(153, 153, 153, 0.1);
+		border-radius: 3px;
+		h2 {
+			margin-bottom: 20px;
+		}
+		p {
+			margin-bottom: 30px;
+		}
+		a {
+			font-weight: 500;
+			text-transform: uppercase;
+		}
+	}
+}
+//--------- End Beginning Area -----------//
+
+//-------- Start Contact Form ----------//
+.contact-area {
+	background: $white;
+}
+.single-address {
+	.icon {
+		width: 60px;
+		height: 60px;
+		@include flexbox();
+		background: #f9faff;
+		@include transition();
+		border-radius: 3px;
+		span {
+			margin: auto;
+			font-size: 24px;
+			font-weight: 600;
+			color: $title-color;
+			@include transition();
+		}
+	}
+	.desc {
+		margin-left: 30px;
+		@include calc(width, "100% - 90px");
+		h5 {
+			margin: 15px 0;
+			font-size: 16px;
+			font-weight: 500;
+		}
+	}
+	&:hover {
+		.icon {
+			background: $primary-color;
+			span {
+				color: $white;
+			}
+		}
+	}
+}
+
+.contact-form {
+	@include media-breakpoint-down (sm) {
+		margin-top: 30px;
+	}
+	::-webkit-input-placeholder {
+		color:    #777777;
+		font-weight: 300;
+	}
+	:-moz-placeholder {
+		color:    #777777;
+		opacity:  1;
+		font-weight: 300;
+	}
+	::-moz-placeholder {
+		color:    #777777;
+		opacity:  1;
+		font-weight: 300;
+	}
+	:-ms-input-placeholder { 
+		color:    #777777;
+		font-weight: 300;
+	}
+	::-ms-input-placeholder { 
+		color:    #777777;
+		font-weight: 300;
+	}
+}
+.common-input {
+	border: 1px solid #d4d5e0;
+	line-height: 48px;
+	width: 100%;
+	display: block;
+	background: transparent;
+	padding: 0 25px;
+	color: $text-color;
+}
+.common-textarea {
+	border: 1px solid #d4d5e0;
+	width: 100%;
+	display: block;
+	background: transparent;
+	padding: 15px 25px;
+	color: $text-color;
+	height: 150px;
+	resize: none;
+}
+.alert-msg {
+	color: $text-color;
+	margin-top: 20px;
+	display: none;
+}
+//-------- End Contact Form ----------//
+.subscription-area {
+	background: #011a27;
+	padding: 50px 0;
+	@include media-breakpoint-down(md) {
+		padding: 50px 0 120px 0;
+	}
+	.subscribe-content {
+		h3 {
+			font-weight: 600;
+		}
+	}
+}
+.subscription {
+	@include media-breakpoint-down (md) {
+		margin-top: 20px;
+	}
+	input {
+		width: 100%;
+		line-height: 50px;
+		padding: 0 180px 0 25px;
+		border: none;
+		background: #1b313d;
+		font-weight: 300;
+		border-radius: 25px;
+		color: $white;
+	}
+	.primary-btn {
+		position: absolute;
+		top: 50%;
+		transform: translateY(-50%);
+		right: 5px;
+	}
+	.info {
+		position: absolute;
+		top: 60px;
+		left: 50%;
+		transform: translateX(-50%);
+		color: $white;
+		font-size: 12px;
+		&.valid {
+			color: green;
+		}
+		&.error {
+			color: red;
+		}
+	}
+	@include media-breakpoint-down(sm) {
+		input {
+			padding: 0 25px;
+		}
+		.primary-btn {
+			top: 120%;
+			transform: translate(50%, 0);
+			right: 50%;
+			width: 177px;
+		}
+		.info {
+			top: 110px;
+		}
+	}
+}
+//----------- Start Footer Area --------------//
+.footer-area {
+	background: #333333;
+	padding: 100px 0;
+	margin-bottom: 6rem;
+	@include media-breakpoint-down(sm) {
+		margin-bottom: 3rem;
+	}
+	.footer-content {
+		position: relative;
+		z-index: 2;
+	}
+	.footer-menu {
+		a {
+			display: inline-block;
+			margin: 0 20px;
+			color: $white;
+			&:hover {
+				color: #011a27;
+			}
+		}
+	}
+	.footer-social {
+		margin: 30px 0;
+		a {
+			display: inline-block;
+			margin: 0 5px;
+			padding: 2px;
+			i {
+				color: $white;
+				@include transition();
+			}
+			&:hover {
+				i {
+					color: #011a27;
+				}
+			}
+		}
+	}
+	.copy-right-text {
+		text-align: center;
+		color: $white;
+		a {
+			&:hover {
+				color: #011a27 !important;
+			}
+		}
+	}
+}
+//----------- End Footer Area --------------//
+
+
+//----------- Start Generic Page -------------//
+
+.about-generic-area {
+	background: $white;
+	.border-top-generic {
+		padding: 120px 15px;
+	}
+	p {
+		margin-bottom: 20px;
+	}
+}
+.white-bg {
+	background: $white;
+}
+.section-top-border {
+	padding: 70px 0;
+}
+.switch-wrap {
+	margin-bottom: 10px;
+	p {
+		margin: 0;
+	}
+}
+//----------- End Generic Page -------------//

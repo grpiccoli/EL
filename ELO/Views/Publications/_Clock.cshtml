@@ -1,0 +1,33 @@
+﻿<environment include="Development">
+    @this.StyleBlock(@<link rel="stylesheet" href="~/lib/angular-flip-clock/dist/angular-flip-clock.css">)
+    @this.ScriptBlock(
+                                @<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>)
+    @this.ScriptBlock(
+                                        @<script src="~/lib/angular-flip-clock/dist/angular-flip-clock.full.js"></script>)
+    @this.ScriptBlock(@<script src="https://www.gstatic.com/charts/loader.js"></script>)
+    @this.ScriptBlock(@<script>
+            angular
+                .module('myApp', ['dyFlipClock'])
+                .run(function ($rootScope, $interval) {
+                    $rootScope.time = 0;
+                    $interval(function () {
+                        $rootScope.time += @((int)ViewData["interval"]);
+                    }, 1, 500);
+                });
+    </script>)
+</environment>
+<environment exclude="Development">
+    @this.StyleBlock(@<link rel="stylesheet" href="~/lib/angular-flip-clock/dist/angular-flip-clock.min.css">)
+    @this.ScriptBlock(
+                                    @<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>)
+    @this.ScriptBlock(
+                                            @<script src="~/lib/angular-flip-clock/dist/angular-flip-clock.full.min.js"></script>)
+    @this.ScriptBlock(@<script src="https://www.gstatic.com/charts/loader.js"></script>)
+    @this.ScriptBlock(@<script>angular.module('myApp', ['dyFlipClock']).run(function ($rootScope, $interval) {$rootScope.time = 0;$interval(function () {$rootScope.time += @((int)ViewData["interval"]);}, 1, 500);});</script>)
+</environment>
+
+<div class="myApp" ng-app="myApp">
+    <div class="m-auto">
+        <dy-flip-clock time="{{time}}"></dy-flip-clock>
+    </div>
+</div>

@@ -1,0 +1,235 @@
+﻿@model IEnumerable<ELO.Models.Country>
+
+@{
+    ViewData["Title"] = "Exportaciones por países";
+}
+
+<h2>@ViewData["Title"], Continente, Recurso Bentónico y Variable</h2>
+
+<form asp-action="Map" method="get">
+    <span class="input-group-btn">
+        <select name="q" class="selectpicker" multiple data-max-options="2" value="@ViewData["c"]" data-width="80%">
+            <optgroup label="Especie" data-max-options="1">
+                <option selected="@((ViewData["sp"] as string).Equals("spe"))" value="spe">
+                    Erizo
+                </option>
+                @*<option selected="@((ViewData["sp"] as string).Equals("spa"))" value="spa">
+                        Almeja
+                    </option>
+                    <option selected="@((ViewData["sp"] as string).Equals("spl"))" value="spl">
+                        Luga
+                    </option>*@
+            </optgroup>
+            <optgroup label="Variable" data-max-options="1">
+                <option selected="@((ViewData["var"] as string).Equals("vp"))" value="vp">
+                    Precio FOB por Ton
+                </option>
+                <option selected="@((ViewData["var"] as string).Equals("vt"))" value="vt">
+                    Toneladas totales
+                </option>
+            </optgroup>
+        </select>
+        <button type="submit" value="Buscar" class="btn btn-info"><i class="glyphicon glyphicon-filter"></i>  Filtrar</button>
+    </span>
+</form>
+
+<div id="chartdiv" style="width: 100%; height: 400px;"></div>
+
+@{
+    var countries = new Dictionary<Country, double> { };
+    var continents = new Dictionary<Continent, Dictionary<Species, double>> { };
+    foreach (var country in Model)
+    {
+        foreach (var export in country.Exports)
+        {
+            if (
+                    (ViewData["sp"] as string).Equals("spe") && export.Species.Equals(Species.Erizo) ||
+                    (ViewData["sp"] as string).Equals("spa") && export.Species.Equals(Species.Almeja) ||
+                    (ViewData["sp"] as string).Equals("spl") && export.Species.Equals(Species.Luga)
+                )
+            {
+                double bla;
+                if (!countries.TryGetValue(country, out bla))
+                {
+                    countries[country] = 0;
+                }
+
+                if ((ViewData["var"] as string).Equals("vp"))
+                {
+                    countries[country] += Math.Round((double)(export.FOB / export.Kg), 0);
+                }
+                else
+                {
+                    countries[country] += export.Kg;
+                }
+            }
+            Dictionary<Species, double> blu;
+            if (!continents.TryGetValue(country.Continent, out blu))
+            {
+                continents[country.Continent] = new Dictionary<Species, double>{
+{Species.Erizo,0},{Species.Almeja,0},{Species.Luga,0}
+};
+            }
+
+            if ((ViewData["var"] as string).Equals("vp"))
+            {
+                continents[country.Continent][export.Species] += Math.Round((double)(export.FOB / export.Kg), 0);
+            }
+            else
+            {
+                continents[country.Continent][export.Species] += export.Kg;
+            }
+        }
+    }
+    List<string> i = new List<string> { };
+    List<string> l = new List<string> { };
+    List<string> t = new List<string> { "{\"id\": \"chile\",\"svgPath\": targetSVG,\"title\": \"Chile\",\"latitude\": -33.4489,\"longitude\": -70.6693,\"scale\": 1}" };
+    List<string> ble = new List<string> { };
+    foreach (KeyValuePair<Country, double> cnt in countries)
+    {
+        i.Add('"' + cnt.Key.ISO2 + '"');
+        l.Add("{\"latitudes\": [-33.4489, " + cnt.Key.Latitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en")) + "],\"longitudes\":[-70.6693, " + cnt.Key.Longitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en")) + "]}");
+        t.Add("{\"svgPath\":targetSVG,\"title\":\"" + cnt.Key.Capital + ", " + cnt.Key.Name + "\",\"latitude\":" + cnt.Key.Latitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en")) + ",\"longitude\":" + cnt.Key.Longitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en")) + ",\"scale\":0.5}");
+        ble.Add("{\"id\": \"" + cnt.Key.ISO2 + "\",\"value\":" + cnt.Value.ToString(System.Globalization.CultureInfo.GetCultureInfo("en")) + "}");
+    }
+    string selected = String.Join(",", i);
+    string lines = String.Join(",", l);
+    string targets = String.Join(",", t);
+    string bli = String.Join(",", ble);
+
+    List<string> p = new List<string> { };
+    foreach (KeyValuePair<Continent, Dictionary<Species, double>> cnt in continents)
+    {
+        p.Add("{\"title\":\"" + cnt.Key.Name + "\",\"latitude\":" + cnt.Key.Latitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en")) + ",\"longitude\":" + cnt.Key.Longitude.ToString(System.Globalization.CultureInfo.GetCultureInfo("en")) + ",\"width\":250,\"height\":250,\"pie\":{\"type\":\"pie\",\"theme\":\"light\",\"pullOutRadious\":0,\"dataProvider\":[{\"category\":\"Erizo\",\"value\":" + cnt.Value[Species.Erizo] + "},{\"category\":\"Almeja\",\"value\":" + cnt.Value[Species.Almeja] + "},{\"category\":\"Luga\",\"value\":" + cnt.Value[Species.Luga] + "}],\"labelText\":\"[[value]]%\",\"valueField\":\"value\",\"titleField\":\"category\"}}");
+    }
+    string conts = String.Join(",", p);
+}
+@section Scripts{
+    <script src="~/lib/ammap3/ammap/ammap.js"></script>
+    <script src="~/lib/ammap3/ammap/maps/js/worldLow.js"></script>
+    <script src="~/lib/ammap3/ammap/themes/light.js"></script>
+    <script src="~/lib/amcharts3/amcharts/amcharts.js"></script>
+    <script src="~/lib/amcharts3/amcharts/pie.js"></script>
+    <script src="~/lib/ammap3/ammap/ammap_amcharts_extension.js"></script>
+    <script src="~/lib/ammap3/ammap/maps/js/continentsLow.js"></script>
+    <script src="~/lib/ammap3/ammap/plugins/export/export.min.js"></script>
+    <script src="~/lib/ammap3/ammap/lang/es.js"></script>
+    <link rel="stylesheet" href="~/lib/ammap3/ammap/plugins/export/export.css" media="all" />
+    <script>
+    var targetSVG = "M9,0C4.029,0,0,4.029,0,9s4.029,9,9,9s9-4.029,9-9S13.971,0,9,0z M9,15.93 c-3.83,0-6.93-3.1-6.93-6.93S5.17,2.07,9,2.07s6.93,3.1,6.93,6.93S12.83,15.93,9,15.93 M12.5,9c0,1.933-1.567,3.5-3.5,3.5S5.5,10.933,5.5,9S7.067,5.5,9,5.5 S12.5,7.067,12.5,9z";
+    var planeSVG = "M19.671,8.11l-2.777,2.777l-3.837-0.861c0.362-0.505,0.916-1.683,0.464-2.135c-0.518-0.517-1.979,0.278-2.305,0.604l-0.913,0.913L7.614,8.804l-2.021,2.021l2.232,1.061l-0.082,0.082l1.701,1.701l0.688-0.687l3.164,1.504L9.571,18.21H6.413l-1.137,1.138l3.6,0.948l1.83,1.83l0.947,3.598l1.137-1.137V21.43l3.725-3.725l1.504,3.164l-0.687,0.687l1.702,1.701l0.081-0.081l1.062,2.231l2.02-2.02l-0.604-2.689l0.912-0.912c0.326-0.326,1.121-1.789,0.604-2.306c-0.452-0.452-1.63,0.101-2.135,0.464l-0.861-3.838l2.777-2.777c0.947-0.947,3.599-4.862,2.62-5.839C24.533,4.512,20.618,7.163,19.671,8.11z";
+    var map = AmCharts.makeChart("chartdiv", {
+        "language": "es",
+        "type": "map",
+        "theme": "dark",
+        "projection": "eckert3",
+        "colorSteps": 10,
+        "dataProvider": {
+            "map": "worldLow",
+            "areas": [@Html.Raw(bli)],
+            "lines": [@Html.Raw(lines)],
+            "images": [@Html.Raw(conts),@Html.Raw(targets)]
+        },
+        "areasSettings": {
+            "autoZoom": true,
+            "balloonText": "[[title]]: <strong>[[value]] Ton</strong>"
+        },
+        "valueLegend": {
+            "right": 10,
+            "minValue": "@Html.Raw(countries.Values.Min()) @(( (ViewData["var"] as string) == "vp")? "USD/Ton": "Ton Tot")",
+            "maxValue": "@Html.Raw(countries.Values.Max()) @(( (ViewData["var"] as string) == "vp")? "USD/Ton": "Ton Tot")"
+        },
+        "imagesSettings": {
+            "color": "#002e5d",
+            "rollOverColor": "#FFCC00",
+            "selectedColor": "#000000"
+        },
+        "linesSettings": {
+            "arc": -0.6, // this makes lines curved. Use value from -1 to 1
+            "arrow": "middle",
+            "color": "#48763d",
+            "alpha": 0.4,
+            "arrowAlpha": 1,
+            "arrowSize": 4,
+        },
+        "zoomControl": {
+            "gridHeight": 100,
+            "draggerAlpha": 1,
+            "gridAlpha": 0.2
+        },
+        "backgroundZoomsToTop": true,
+        "linesAboveImages": true,
+        "export": {
+            "enabled": true
+        },
+        /**
+            * Add init event to perform country selection
+            */
+        "listeners": [{
+            "event": "positionChanged",
+            "method": updateCustomMarkers
+        }]
+    });
+
+    function updateCustomMarkers(event) {
+        // get map object
+        var map = event.chart;
+
+        // go through all of the images
+        for (var x = 0; x < map.dataProvider.images.length; x++) {
+
+            // get MapImage object
+            var image = map.dataProvider.images[x];
+
+            // Is it a Pie?
+            if (image.pie === undefined) {
+                continue;
+            }
+
+            // create id
+            if (image.id === undefined) {
+                image.id = "amcharts_pie_" + x;
+            }
+            // Add theme
+            if ("undefined" == typeof image.pie.theme) {
+                image.pie.theme = map.theme;
+            }
+
+            // check if it has corresponding HTML element
+            if ("undefined" == typeof image.externalElement) {
+                image.externalElement = createCustomMarker(image);
+            }
+
+            // reposition the element accoridng to coordinates
+            var xy = map.coordinatesToStageXY(image.longitude, image.latitude);
+            image.externalElement.style.top = xy.y + "px";
+            image.externalElement.style.left = xy.x + "px";
+            image.externalElement.style.marginTop = Math.round(image.height / -2) + "px";
+            image.externalElement.style.marginLeft = Math.round(image.width / -2) + "px";
+        }
+    }
+
+    /**
+        * Creates a custom map marker - a div for container and a
+        * pie chart in it
+        */
+    function createCustomMarker(image) {
+
+        // Create chart container
+        var holder = document.createElement("div");
+        holder.id = image.id;
+        holder.title = image.title;
+        holder.style.position = "absolute";
+        holder.style.width = image.width + "px";
+        holder.style.height = image.height + "px";
+
+        // Append the chart container to the map container
+        image.chart.chartDiv.appendChild(holder);
+
+        // Create a pie chart
+        var chart = AmCharts.makeChart(image.id, image.pie);
+
+        return holder;
+    }
+    </script>
+}

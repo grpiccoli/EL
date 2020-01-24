@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+    <title>@ViewData["Title"] - ELO</title>
+    <environment exclude="Development">
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-46146363-4"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag() { dataLayer.push(arguments); }
+            gtag('js', new Date());
+            gtag('config', 'UA-46146363-4');
+        </script>
+        <meta name="author" content="Epic Solutions" />
+        @*<open-graph-website site-name="BiblioMit"
+                                    title="@ViewData["Title"]"
+                                    main-image="@(new OpenGraphImage(
+                Url.Content("~/android-chrome-512x512.png"),
+                "image/png",
+                1200,
+                630))"
+                                    determiner="@OpenGraphDeterminer.Blank" />
+                <script type="application/ld+json">
+                    @{
+                        var website = new WebSite()
+                        {
+                            AlternateName = "Programa Tecnológico Producción de Semilla y Repoblamiento de Erizo Rojo y Loco para Potenciar la Diversificación de la Acuicultura Nacional.",
+                            Name = "ELO - " + (string)ViewData["Title"],
+                            Url = new Uri($"{Context.Request.Scheme}://{Context.Request.Host}{Context.Request.Path}{Context.Request.QueryString}")
+                        };
+                        var jsonLd = website.ToString();
+                    }
+                    @Html.Raw(jsonLd)
+                </script>
+                @Html.Raw(new TwitterCardSummaryLargeImage
+            {
+                Title = "Programa ELO Chile",
+                Description = "Programa Tecnológico Producción de Semilla y Repoblamiento de Erizo Rojo y Loco para Potenciar la Diversificación de la Acuicultura Nacional",
+                CreatorUsername = "@elochile",
+                SiteUsername = "@elochile"
+            })*@
+    </environment>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,500,600" rel="stylesheet">
+    <!--
+    CSS
+    ============================================= -->
+    <link rel="stylesheet" href="css/linearicons.css">
+    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="css/nice-select.css">
+    <link rel="stylesheet" href="css/magnific-popup.css">
+    <link rel="stylesheet" href="css/main.css">
+    <partial name="_Favicons" />
+    <partial name="_LO_Libs" model='new List<string> { "jquery", "bootstrap", "@fortawesome/fontawesome-free", "site.min.css", "site.min.js", "modal-action.min.js" }' />
+    @this.LO_WriteStyleBlocks()
+    @this.WriteStyleBlocks()
+    @RenderSection("Styles", required: false)
+</head>
+<body>
+    <!-- Load Facebook SDK for JavaScript -->
+    <div id="fb-root"></div>
+    <script>
+        window.fbAsyncInit = function () {
+            FB.init({
+                xfbml: true,
+                version: 'v3.3'
+            });
+        };
+
+        (function (d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/es_LA/sdk/xfbml.customerchat.js';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+
+    <!-- Your customer chat code -->
+    <div class="fb-customerchat"
+         attribution=setup_tool
+         page_id="611225579233083"
+         theme_color="#6699cc">
+    </div>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse" role="button" aria-haspopup="true" aria-expanded="false">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a asp-controller="Home" asp-action="Index" class="navbar-brand dropdown-toggle navLogo" data-toggle="dropdown">
+                            <img src="~/images/logo.svg" alt="bibliomit gray icon" class="img-responsive" width="30" style="float:left;" hspace="4" />
+                            <img src="~/images/firma.svg" alt="bibliomit gray icon" class="img-responsive" width="30" style="float:left;" hspace="4" />
+                            <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu">
+                            <li><a asp-area="" asp-controller="Home" asp-action="Index">Inicio</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="About">Quienes Somos</a></li>
+                            <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contáctanos</a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li class="dropdown">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">Herramientas<span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li class="dropdown-header">Buscadores:</li>
+                            <li class="btn-default"><a asp-area="" asp-controller="Publications" asp-action="Index">Biblioteca</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Mapas:</li>
+                            <li><a asp-area="" asp-controller="Countries" asp-action="Map">Exportaciones</a></li>
+                            <li><a asp-area="" asp-controller="Regions" asp-action="Map">Producción</a></li>
+                            <li role="separator" class="divider"></li>
+                            <li class="dropdown-header">Gráficas:</li>
+                            <li><a asp-area="" asp-controller="Exports" asp-action="Summary">Exportaciones</a></li>
+                            @if (!User.Identity.IsAuthenticated)
+                            {
+
+                            }
+                            else
+                            {
+                                <li class="dropdown-header">Ingresar para ver más herramientas:</li>
+                                <li><a asp-area="" asp-controller="Account" asp-action="Login">Iniciar Sesi&oacute;n</a></li>
+                                @*<li><a asp-area="" asp-controller="Account" asp-action="Register">Registrarse</a></li>*@
+                            }
+                        </ul>
+                    </li>
+                    <li>
+                        <a asp-controller="Home" asp-action="Mapa"><i class="fas fa-map-marked-alt"></i> Mapa ELO</a>
+                    </li>
+                </ul>
+                <partial name="_LoginPartial" />
+            </div>
+        </div>
+    </nav>
+
+    <partial name="_CookieConsentPartial" />
+
+    <div class="container-fluid body-content">
+        @RenderBody()
+        <hr />
+        <footer>
+            <div class="col-md-4 align-self-end">
+                <div class="row">
+                    <div class="col">
+                        <a target="_blank" href="https://www.epicsolutions.cl">
+                            <img src="~/epic_light_hor.svg" alt="epic solutions" class="img-responsive" height="20" />
+                        </a>
+                    </div>
+                    <div class="col">
+                        <p class="text-right">
+                            &copy; @DateTime.Now.Year - ELO
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+    @this.LO_WriteScriptBlocks()
+    @RenderSection("ScripTop", required: false)
+    @this.WriteScriptBlocks()
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

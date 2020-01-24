@@ -1,0 +1,217 @@
+﻿@model IEnumerable<ELO.Models.Export>
+
+@{
+    ViewData["Title"] = "Exportaciones";
+}
+
+<h2>Base de datos y Estad&iacute;stica de Exportaciones bent&oacute;nicas</h2>
+
+<div id="chartdiv" style="height:550px;width:100%"></div>
+
+@{  
+    List<string> a1 = new List<string> { };
+    List<string> a2 = new List<string> { };
+    List<string> a3 = new List<string> { };
+    foreach (var item in Model.OrderBy(c => c.Date))
+    {
+        if (item.Species.Equals(Species.Almeja))
+        {
+            a1.Add("{\"date\": new Date(" + item.Date.Year + ',' + item.Date.Month + ',' + item.Date.Day + "),\"value\":" + item.FOB + ",\"volume\":" + item.Kg + '}');
+        }
+        else if (item.Species.Equals(Species.Erizo))
+        {
+            a2.Add("{\"date\": new Date(" + item.Date.Year + ',' + item.Date.Month + ',' + item.Date.Day + "),\"value\":" + item.FOB + ",\"volume\":" + item.Kg + '}');
+        }
+        else if (item.Species.Equals(Species.Luga))
+        {
+            a3.Add("{\"date\": new Date(" + item.Date.Year + ',' + item.Date.Month + ',' + item.Date.Day + "),\"value\":" + item.FOB + ",\"volume\":" + item.Kg + '}');
+        }
+    }
+    string c1 = String.Join(",", a1.ToArray());
+    string c2 = String.Join(",", a2.ToArray());
+    string c3 = String.Join(",", a3.ToArray());
+    }
+
+    @section Scripts{
+    <script src="~/lib/amcharts3/amcharts/amcharts.js"></script>
+    <script src="~/lib/amcharts3/amcharts/serial.js"></script>
+    <script src="~/lib/amcharts3/amcharts/themes/light.js"></script>
+    <script src="~/lib/amstock3/amcharts/amstock.js"></script>
+    <script src="~/lib/amcharts3/amcharts/lang/es.js"></script>
+    <script>
+    var chartData1 = [@Html.Raw(c1)];
+    var chartData2 = [@Html.Raw(c2)];
+    var chartData3 = [@Html.Raw(c3)];
+        
+        var chart = AmCharts.makeChart("chartdiv", {
+            "language": "es",
+            type: "stock",
+            "theme": "light",
+
+            dataSets: [{
+                title: "Erizo",
+                fieldMappings: [{
+                    fromField: "value",
+                    toField: "value"
+                }, {
+                    fromField: "volume",
+                    toField: "volume"
+                }],
+                dataProvider: chartData1,
+                categoryField: "date"
+            },
+
+            {
+                title: "Almeja",
+                fieldMappings: [{
+                    fromField: "value",
+                    toField: "value"
+                }, {
+                    fromField: "volume",
+                    toField: "volume"
+                }],
+                dataProvider: chartData2,
+                categoryField: "date"
+            },
+
+            {
+                title: "Luga",
+                fieldMappings: [{
+                    fromField: "value",
+                    toField: "value"
+                }, {
+                    fromField: "volume",
+                    toField: "volume"
+                }],
+                dataProvider: chartData3,
+                categoryField: "date"
+            }
+            ],
+
+            panels: [{
+
+                showCategoryAxis: false,
+                title: "Valor FOB (USD)",
+                percentHeight: 70,
+
+                stockGraphs: [{
+                    id: "g1",
+
+                    valueField: "value",
+                    comparable: true,
+                    compareField: "value",
+                    balloonText: "[[title]]:<b>[[value]]</b>",
+                    compareGraphBalloonText: "[[title]]:<b>[[value]]</b>"
+                }],
+
+                stockLegend: {
+                    periodValueTextComparing: "[[percents.value.close]]%",
+                    periodValueTextRegular: "[[value.close]]"
+                }
+            },
+
+            {
+                title: "Volumen (Ton)",
+                percentHeight: 30,
+                stockGraphs: [{
+                    valueField: "volume",
+                    type: "column",
+                    showBalloon: false,
+                    fillAlphas: 1
+                }],
+
+                stockLegend: {
+                    periodValueTextRegular: "[[value.close]]"
+                }
+            }
+            ],
+
+            chartScrollbarSettings: {
+                graph: "g1"
+            },
+
+            chartCursorSettings: {
+                valueBalloonsEnabled: true,
+                fullWidth: true,
+                cursorAlpha: 0.1,
+                valueLineBalloonEnabled: true,
+                valueLineEnabled: true,
+                valueLineAlpha: 0.5
+            },
+
+            periodSelector: {
+                position: "left",
+                periods: [{
+                    period: "MM",
+                    count: 1,
+                    label: "1 mes"
+                }, {
+                    period: "YYYY",
+                    count: 1,
+                    label: "1 año"
+                }, {
+                    period: "YTD",
+                    label: "YTD"
+                }, {
+                    selected: true,
+                    period: "MAX",
+                    label: "MAX"
+                }]
+            },
+
+            dataSetSelector: {
+                position: "left"
+            },
+            "export": {
+                "enabled": true
+            }
+        });
+
+        chart.addListener("init", function (e) {
+
+            // Lock periodSelector and release with an delay to abuse the internal "zoomed" callback
+            function handleInputField(inputEvent) {
+                if (inputEvent.type == "focus") {
+                    e.chart.periodSelector.retainLock = true;
+                } else {
+                    setTimeout(function () {
+                        e.chart.periodSelector.retainLock = false;
+                    }, 250);
+                }
+            }
+
+            // Observe zooming to capture the date
+            e.chart.addListener("zoomed", function (e) {
+
+                // Required delay because periodSelector used this event before calling his own
+                setTimeout(function () {
+                    e.chart.periodSelector.retainStart = e.startDate;
+                }, 100);
+            });
+
+            // Observe periodSelector updates and apply retained date
+            e.chart.periodSelector.addListener("changed", function (e) {
+                var start = Number(e.chart.periodSelector.retainStart || e.startDate);
+                var diff = Number(e.endDate) - Number(e.startDate);
+                var end = start + diff;
+
+                if (!e.chart.periodSelector.retainLock &&
+                    e.chart.periodSelector.retainStart &&
+                    e.predefinedPeriod != "MAX" &&
+                    e.chart.lastDate > end
+                ) {
+                    start = new Date(start);
+                    end = new Date(end);
+                    e.chart.zoom(start, end);
+                }
+            });
+
+            // Observe periodSelector date fields
+            e.chart.periodSelector.startDateField.addEventListener("focus", handleInputField);
+            e.chart.periodSelector.startDateField.addEventListener("blur", handleInputField);
+            e.chart.periodSelector.endDateField.addEventListener("focus", handleInputField);
+            e.chart.periodSelector.endDateField.addEventListener("blur", handleInputField);
+        });
+    </script>
+
+}

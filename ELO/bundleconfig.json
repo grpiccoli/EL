@@ -1,0 +1,10 @@
+[
+  {
+    "outputFileName": "wwwroot/css/elo.min.css",
+    "inputFiles": [ "wwwroot/css/elo.css" ]
+  },
+  {
+    "outputFileName": "wwwroot/css/elo.min.js",
+    "inputFiles": [ "wwwroot/css/elo.js" ]
+  }
+]

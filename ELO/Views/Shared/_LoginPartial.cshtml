@@ -1,0 +1,39 @@
+@using Microsoft.AspNetCore.Identity
+@using ELO.Models
+
+@inject SignInManager<AppUser> SignInManager
+@inject UserManager<AppUser> UserManager
+
+<form asp-area="" 
+asp-controller="Account" asp-action="Logout" 
+method="post" id="logoutForm" class="navbar-right" style="margin-right:10px;">
+    <ul class="nav navbar-nav navbar-right">
+        <li style="padding-top:-10px!important;">
+            <a href="https://www.corfo.cl" target="_blank">
+                <img height="30" src="~/images/ico/corfo.svg" />
+                <img height="30" src="~/images/ico/gob.cl.svg" />
+            </a>
+        </li>
+        <li>
+            <a href="https://www.instagram.com/elo_chile" target="_blank"><i class="fab fa-instagram"></i></a>
+        </li>
+        <li>
+            <a href="https://www.facebook.com/elochile2018" target="_blank"><i class="fab fa-facebook-f"></i></a>
+        </li>
+        <li>
+            <a href="https://twitter.com/elochile" target="_blank"><i class="fab fa-twitter"></i></a>
+            @*<a asp-area="" asp-controller="Manage" asp-action="Index" title="Configuraci&oacute;n de cuenta de usuario">&iexcl;Hola @UserManager.GetUserName(User)!</a>*@
+        </li>
+        @if (SignInManager.IsSignedIn(User))
+        {
+            <li>
+                <button type="submit" class="btn btn-link navbar-btn navbar-link">Cerrar sesi&oacute;n &emsp;&emsp;</button>
+            </li>
+        }
+        else
+        {
+            @*<li><a asp-area="" asp-controller="Account" asp-action="Register">Registrarse</a></li>*@
+            <li><a asp-area="" asp-controller="Account" asp-action="Login">Ingresar</a></li>
+        }
+    </ul>
+</form>

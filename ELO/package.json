@@ -1,0 +1,16 @@
+{
+  "version": "1.0.0",
+  "name": "elo",
+  "private": true,
+  "devDependencies": {},
+  "main": "index.js",
+  "dependencies": {
+    "cldr-data-downloader": "^0.3.4"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": ""
+}

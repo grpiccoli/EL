@@ -1,0 +1,96 @@
+﻿@model TableFilterVM
+@using ELO.Models.ViewModels
+
+@switch (Model.Type)
+{
+    case FilterType.date:
+    case FilterType.select:
+        <div class="col-lg-10 col-md-10 col-sm-10 col-xs-10">
+            @if (Model.Type == FilterType.date)
+            {
+                <div class="input-group">
+                    <span id="btn@(Model.Id)" class="input-group-addon"><i class="far fa-calendar-alt"></i></span>
+                    <input type="text"
+                           id="@Model.Id"
+                           name="@Model.Name"
+                           value="@Model.Val"
+                           class="form-control"
+                           style="width:110px"
+                           onchange="filter(this)" />
+                </div>
+                @this.ScriptBlock(
+                    @<script>
+                $(function () {
+                    var availableDate = [@Html.Raw(ViewData[Model.Id] as string)];
+
+                    function available(date) {
+                        ymd = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+                        if ($.inArray(ymd, availableDate) != -1) {
+                            return [true, "", "Available"];
+                        } else {
+                            return [false, "", "unAvailable"]
+                        }
+                    }
+
+                    $("#@Model.Id").datepicker({
+                        maxDate: 0,
+                        showOtherMonths: true,
+                        selectOtherMonths: true,
+                        showButtonPanel: true,
+                        changeMonth: true,
+                        changeYear: true,
+                        dateFormat: "dd-mm-yy",
+                        beforeShowDay: available
+                    });
+                    $("#@Model.Id").datepicker($.datepicker.regional["es"]);
+                });
+
+                $("#btn@(Model.Id)").click(function () {
+                    $("#@Model.Id").datepicker('show');
+                });
+                    </script>
+                                                                                                                                                                                                                                                                                                                                                                                             )
+            }
+            else
+            {
+                Model.List = ViewData[Model.Id] as MultiSelectList;
+                <select id="@Model.Id"
+                        title="@Model.Name"
+                        class="selectpicker form-control show-tick"
+                        data-width="150px"
+                        data-size="4"
+                        multiple
+                        data-max-options="@Model.MaxOptions"
+                        onchange="filter(this)"
+                        data-live-search="@Model.LiveSearch"
+                        asp-items="Model.List"></select>
+            }
+        </div>
+        <div id="@Model.Id"
+             class="col-lg-1 col-md-1 col-sm-1 col-xs-1 sorting@(Model.Srt == Model.Id ? Model.Asc ? "_asc" : "_desc" : "")"
+             onclick="filter(this)"
+             onmouseover="">
+            &emsp;
+        </div>
+        break;
+    case FilterType.checkbox:
+        <label class="checkbox-inline">
+            <input onchange="filter(this)"
+                   id="@Model.Name"
+                   type="checkbox"
+                   data-toggle="toggle"
+                   data-on="@Model.Name - On"
+                   data-off="@Model.Name - Off"
+                   @(true ? "checked" : "")>
+        </label>
+        break;
+    case FilterType.sort:
+    default:
+        <div class="filter-sort sorting@(Model.Srt == Model.Id ? Model.Asc ? "_asc" : "_desc" : "")"
+             id="@Model.Id"
+             onclick="filter(this)"
+             onmouseover="">
+            @Model.Name
+        </div>
+        break;
+}

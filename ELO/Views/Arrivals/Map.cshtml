@@ -1,0 +1,93 @@
+﻿@model IEnumerable<ELO.Models.Arrival>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Index</h2>
+
+<form asp-action="Map" method="get">
+    <span class="input-group-btn">
+        <select name="q" class="selectpicker" multiple data-max-options="1" value="@ViewData["q"]" data-width="100%">
+            <optgroup label="Especie" data-max-options="1">
+                <option selected="@((ViewData["q"] as string).Equals("spe"))" value="spe">
+                    Erizo
+                </option>
+                <option selected="@((ViewData["q"] as string).Equals("spa"))" value="spa">
+                    Almeja
+                </option>
+                <option selected="@((ViewData["q"] as string).Equals("spl"))" value="spl">
+                    Luga
+                </option>
+            </optgroup>
+        </select>
+        <button type="submit" value="Buscar" class="btn btn-info"><i class="glyphicon glyphicon-filter"></i>  Filtrar</button>
+    </span>
+</form>
+
+@{
+    var regions = new Dictionary<string, int> { };
+    foreach (var arrival in Model)
+    {
+        if (
+            (ViewData["q"] as string).Equals("spe") && arrival.Species.Equals(Species.Erizo) ||
+            (ViewData["q"] as string).Equals("spa") && arrival.Species.Equals(Species.Almeja) ||
+            (ViewData["q"] as string).Equals("spl") && arrival.Species.Equals(Species.Luga)
+            )
+        {
+            int bla;
+            if (!regions.TryGetValue(arrival.Comuna.Provincia.Region.MapCode, out bla))
+            {
+                regions[arrival.Comuna.Provincia.Region.MapCode] = 0;
+            }
+            regions[arrival.Comuna.Provincia.Region.MapCode] += arrival.Kg;
+        }
+    }
+    List<string> ble = new List<string> { };
+    foreach (KeyValuePair<string,int> reg in regions)
+    {
+        ble.Add("{\"id\": \"" + reg.Key + "\",\"value\":" + reg.Value + "}");
+    }
+    string bli = String.Join(",",ble);
+}
+
+<div id="chartdiv" style="width: 100%; height: 400px;"></div>
+
+@section Scripts{
+    <script src="~/lib/ammap3/ammap/ammap.js"></script>
+    <script src="~/lib/ammap3/ammap/maps/js/chileLow.js"></script>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/amcharts3/amcharts/plugins/export/export.min.js"></script>
+    <link rel="stylesheet" href="~/lib/amcharts3/amcharts/plugins/export/export.css" media="all" />
+    <script src="~/lib/amcharts3/amcharts/themes/light.js"></script>
+    <script>
+        var map = AmCharts.makeChart("chartdiv", {
+            "language":"es",
+            "type": "map",
+            "theme": "dark",
+            "colorSteps": 10,
+
+            "dataProvider": {
+                "map": "chileLow",
+                "areas": [@Html.Raw(bli)]
+            },
+            "valueLegend": {
+                "right": 10,
+                "minValue": "few Ton",
+                "maxValue": "plenty Ton"
+            },
+            "export": {
+                "enabled": true
+            },
+            "zoomControl": {
+                "gridHeight": 100,
+                "draggerAlpha": 1,
+                "gridAlpha": 0.2
+            },
+            "areasSettings": {
+                "autoZoom": true,
+                "balloonText": "[[title]]: <strong>[[value]] Ton</strong>"
+            }
+        });
+    </script>
+}

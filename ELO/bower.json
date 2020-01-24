@@ -1,0 +1,30 @@
+{
+  "description": "elo chile",
+  "homepage": "https://www.elochile.cl",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "license": "MIT",
+  "main": "",
+  "name": "elo",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "3.3.7",
+    "jquery-validation": "1.18.0",
+    "jquery": "3.3.1",
+    "jquery-validation-unobtrusive": "3.2.11",
+    "cldr-data": "29.0.0",
+    "globalize": "1.4.0",
+    "jquery-validation-globalize": "1.0.0",
+    "cldrjs": "0.5.0",
+    "bootstrap-select": "1.13.3",
+    "amcharts3": "3.21.7",
+    "amstock3": "3.21.7",
+    "ammap3": "3.21.7",
+    "angular-flip-clock": "0.4.0"
+  }
+}

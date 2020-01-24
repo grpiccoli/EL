@@ -1,0 +1,41 @@
+{
+  "version": "1.0",
+  "defaultProvider": "unpkg",
+  "libraries": [
+    {
+      "library": "@fortawesome/fontawesome-free@5.7.2",
+      "destination": "wwwroot/lib/@fortawesome/fontawesome-free/",
+      "files": [
+        "css/all.min.css",
+        "webfonts/fa-solid-900.woff2",
+        "webfonts/fa-solid-900.woff",
+        "webfonts/fa-solid-900.ttf",
+        "webfonts/fa-regular-400.woff2",
+        "webfonts/fa-regular-400.woff",
+        "webfonts/fa-regular-400.ttf"
+      ]
+    },
+    {
+      "library": "bootstrap@3.3.7",
+      "destination": "wwwroot/lib/bootstrap/",
+      "files": [
+        "dist/css/bootstrap.min.css",
+        "dist/js/bootstrap.min.js"
+      ]
+    },
+    {
+      "library": "bootstrap-select@1.13.5",
+      "destination": "wwwroot/lib/bootstrap-select/",
+      "files": [
+        "dist/css/bootstrap-select.min.css",
+        "dist/js/bootstrap-select.min.js",
+        "dist/js/i18n/defaults-es_CL.min.js"
+      ]
+    },
+    {
+      "library": "jquery@3.3.1",
+      "destination": "wwwroot/lib/jquery/",
+      "files": [ "dist/jquery.min.js" ]
+    }
+  ]
+}

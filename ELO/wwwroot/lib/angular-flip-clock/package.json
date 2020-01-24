@@ -1,0 +1,51 @@
+{
+  "name": "angular-flip-clock",
+  "version": "0.4.0",
+  "description": "Port of FlipClock.js to Angular without any dependencies",
+  "main": "dist/angular-flip-clock.tpl.min.js",
+  "directories": {
+    "example": "example"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dmytroyarmak/angular-flip-clock.git"
+  },
+  "keywords": [
+    "angular",
+    "directive",
+    "flipclock",
+    "timer",
+    "time",
+    "clock",
+    "watch",
+    "component",
+    "countdown",
+    "timeout"
+  ],
+  "author": "Dmytro Yarmak <dmytroyarmak@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dmytroyarmak/angular-flip-clock/issues"
+  },
+  "homepage": "https://github.com/dmytroyarmak/angular-flip-clock#readme",
+  "dependencies": {
+    "angular": "*"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.0.2",
+    "browser-sync": "^2.9.3",
+    "del": "^2.0.1",
+    "gulp": "^3.9.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-minify-css": "^1.2.1",
+    "gulp-ng-html2js": "^0.2.0",
+    "gulp-postcss": "^6.0.0",
+    "gulp-uglify": "^1.4.0",
+    "gulp-util": "^3.0.6",
+    "gulp-wrap": "^0.11.0",
+    "is": "^3.0.1"
+  }
+}

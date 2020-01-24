@@ -16,5 +16,17 @@
     "inputFiles": [
       "wwwroot/js/modal-action.js"
     ]
+  },
+  {
+    "outputFileName": "wwwroot/js/elo.min.js",
+    "inputFiles": [
+      "wwwroot/js/elo.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/main.min.js",
+    "inputFiles": [
+      "wwwroot/js/main.js"
+    ]
   }
 ]

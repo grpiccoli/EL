@@ -1,4 +1,4 @@
-﻿@model ELO.Models.Provincia
+﻿@model ELO.Models.Province
 
 @{
     ViewData["Title"] = "Create";
@@ -13,13 +13,13 @@
         <form asp-action="Create">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="ID" class="control-label"></label>
-                <input asp-for="ID" class="form-control" />
-                <span asp-validation-for="ID" class="text-danger"></span>
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="RegionID" class="control-label"></label>
-                <select asp-for="RegionID" class ="form-control" asp-items="ViewBag.RegionID"></select>
+                <label asp-for="RegionId" class="control-label"></label>
+                <select asp-for="RegionId" class ="form-control" asp-items="ViewBag.RegionId"></select>
             </div>
             <div class="form-group">
                 <label asp-for="Name" class="control-label"></label>

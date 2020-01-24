@@ -38,6 +38,13 @@ namespace ELO
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseSqlServer(
+                    Configuration.GetConnectionString(os + "Connection")));
+
+            services.AddHostedService<SeedBackground>();
+            services.AddScoped<ISeed, SeedService>();
+
             services.Configure<CookiePolicyOptions>(options =>
             {
                 // This lambda determines whether user consent for non-essential cookies is needed for a given request.
@@ -45,9 +52,6 @@ namespace ELO
                 options.MinimumSameSitePolicy = SameSiteMode.None;
             });
 
-            services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString(os + "Connection")));
             services.AddIdentity<AppUser, AppRole>(config =>
             {
                 config.SignIn.RequireConfirmedEmail = true;

@@ -1,4 +1,4 @@
-﻿@model ELO.Models.Comuna
+﻿@model ELO.Models.Commune
 
 @{
     ViewData["Title"] = "Delete";
@@ -30,15 +30,15 @@
             @Html.DisplayFor(model => model.CS)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Provincia)
+            @Html.DisplayNameFor(model => model.Province)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Provincia.ID)
+            @Html.DisplayFor(model => model.Province.Id)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
     </form>

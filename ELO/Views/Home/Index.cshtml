@@ -5,200 +5,108 @@
 @section Styles{
     <link rel="stylesheet" href="~/css/home.css" />
 }
+<div class="container body-content">
+    <div class="container">
+        <div class="row">
+            <br />
+            <br />
+            <br />
+            <div class="col-lg-8">
+                <img src="~/images/banner.png" alt="AmiChile" class="img-responsive" style="padding-bottom:30px" />
+            </div>
+            <div class="col-lg-4">
+                <video style="width:100%;" autoplay muted loop controls>
+                    <source src="~/video/COVER-FB.mp4" type="video/mp4">
+                </video>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <p>
+                <a class="btn btn-info btn-block" href="@Url.Action("Index", "Publications", null, null)" style="font-family:sans-serif;font-size:22px">
+                    Biblioteca &raquo;
+                </a>
+            </p>
+            <p style="text-align:justify">
+                Buscador de Publicaciones, Patentes, Tésis, Proyectos y Otros en Loxechinus albus y Concholepas concholepas.
+            </p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <p>
+                <a class="btn btn-info btn-block" href="@Url.Action("Map", "Countries", null, null)" style="font-family:sans-serif;font-size:22px">
+                    Exportaciones &raquo;
+                </a>
+            </p>
+            <p style="text-align:justify">
+                Mapa georefrenciado de exportaciones con estadísticas de volúmen y precio por año para erizo <i>Loxechinus albus</i>.
+            </p>
+        </div>
+        <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
+            <p>
+                <a class="btn btn-info btn-block" href="@Url.Action("Map", "Regions", null, null)" style="font-family:sans-serif;font-size:22px">
+                    Producción &raquo;
+                </a>
+            </p>
+            <p style="text-align:justify">
+                Listado de actores productivos georeferenciadospor área de manejo relativos a la especie <i>Loxechinus albus</i>.
+            </p>
+        </div>
+    </div>
+    <div id="nanogallery2" data-nanogallery2='{
+     "galleryResizeAnimation": true,
+    "thumbnailHeight":          210,
+    "thumbnailWidth":           "auto",
+    "thumbnailL1GutterWidth":   15,
+         "debug":         false,
+    "thumbnailL1GutterHeight":  0,
+    "thumbnailBorderVertical":  0,
+    "thumbnailBorderHorizontal":0,
+    "itemsBaseURL":             "@Html.Raw((string)ViewData["Url"])",
+    "thumbnailStacks":          4,
+    "thumbnailStacksRotateZ":   0.4,
+     "thumbnailLabel": {
+        "position":   "overImageOnMiddle",
+          "titleMultiLine": true,
+     "hideIcons": true,
+     "align": "left"
+        },
+    "thumbnailBuildInit2":      "thumbnail_transform-origin_50% 150%",
+    "thumbnailHoverEffect2":    "thumbnail_rotateX_0deg_10deg_easeOutBack_200 | thumbnail_rotateX_10deg_0deg_delay250_keyframe_hoverin_easeOutBack_400 | thumbnail_rotateY_0deg_20deg_easeOutQuad_150_hoverin|thumbnail_rotateY_20deg_-20deg_delay160_keyframe_hoverin_easeOutQuad_200|thumbnail_rotateY_-20deg_0deg_delay320_keyframe_hoverin_easeOutQuad_150|title_translateX_0px_20px_easeOutQuad_150_hoverin|title_translateX_20px_-20px_delay160_keyframe_hoverin_easeOutQuad_200|title_translateX_-20px_0px_delay320_keyframe_hoverin_easeOutQuad_150|description_translateX_0px_12px_easeOutQuad_150_hoverin|description_translateX_12px_-12px_delay160_keyframe_hoverin_easeOutQuad_200|description_translateX_-12px_0px_delay320_keyframe_hoverin_easeOutQuad_150 | toolsAppear | labelSlideUpTop",
+     "album":                   "none",
+     "thumbnailToolbarImage":{
+     "topLeft":"share", "topRight":"download"
+     }
+}'>
+        <a href="~/images/proyectos/Picture1.jpg" data-ngThumb="/images/proyectos/Picture1.jpg">Proyecto 1</a>
+        <a href="~/images/proyectos/Picture2.jpg" data-ngThumb="/images/proyectos/Picture2.jpg">Proyecto 2</a>
+        <a href="~/images/proyectos/Picture3.jpg" data-ngThumb="/images/proyectos/Picture3.jpg">Proyecto 3</a>
+        <a href="~/images/proyectos/Picture4.jpg" data-ngThumb="/images/proyectos/Picture4.jpg">Proyecto 4</a>
+        <a href="~/images/proyectos/Picture5.jpg" data-ngThumb="/images/proyectos/Picture5.jpg">Proyecto 5</a>
+        <a href="~/images/proyectos/Picture6.jpg" data-ngThumb="/images/proyectos/Picture6.jpg">Proyecto 6</a>
+        <a href="~/images/proyectos/Picture7.jpg" data-ngThumb="/images/proyectos/Picture7.jpg">Proyecto 7</a>
+        <a href="~/images/proyectos/Picture8.jpg" data-ngThumb="/images/proyectos/Picture8.jpg">Proyecto 8</a>
+        <a href="~/images/proyectos/Picture9.jpg" data-ngThumb="/images/proyectos/Picture9.jpg">Proyecto 9</a>
+        <a href="~/images/proyectos/Picture10.jpg" data-ngThumb="/images/proyectos/Picture10.jpg">Proyecto 10</a>
+    </div>
+</div>
 
-<section class="featured-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="single-feature text-center">
-                    <span class="lnr lnr-screen"></span>
-                    <h3>Stunning Visuals</h3>
-                    <p>Here, I focus on a range of items and features that we use in life without giving them a second thought such as Coca Cola.</p>
-                    <a href="#" class="text-uppercase">Learn Details</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="single-feature text-center">
-                    <span class="lnr lnr-code"></span>
-                    <h3>Clean Code</h3>
-                    <p>Here, I focus on a range of items and features that we use in life without giving them a second thought such as Coca Cola.</p>
-                    <a href="#" class="text-uppercase">Learn Details</a>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="single-feature text-center">
-                    <span class="lnr lnr-clock"></span>
-                    <h3>Punctuality</h3>
-                    <p>Here, I focus on a range of items and features that we use in life without giving them a second thought such as Coca Cola.</p>
-                    <a href="#" class="text-uppercase">Learn Details</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Feature Area -->
-<!-- Start Testimonial Area -->
-<section class="section-gap testimonial-area relative">
-    <div class="overlay overlay-bg"></div>
-    <div class="container relative">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="active-testimonial-carousel">
-                    <div class="item">
-                        <h3>From the part of beginning</h3>
-                        <p>Usage of the Internet is becoming more common due to rapid advancement of technology and the power of globalization. Societies are becoming more inter-connected. Thoughts from different</p>
-                        <a href="#">See Case Study</a>
-                    </div>
-                    <div class="item">
-                        <h3>From the part of beginning</h3>
-                        <p>Usage of the Internet is becoming more common due to rapid advancement of technology and the power of globalization. Societies are becoming more inter-connected. Thoughts from different</p>
-                        <a href="#">See Case Study</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="next-trigger"><span class="lnr lnr-arrow-right"></span></div>
-        <div class="prev-trigger"><span class="lnr lnr-arrow-left"></span></div>
-    </div>
-</section>
-<!-- End Testimonial Area -->
-<!-- Start Project Area -->
-<section class="project-area">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="single-project" style="background: url(img/p1.jpg);">
-                    <div class="overlay overlay-content">
-                        <h4>Vector Illustration</h4>
-                        <p>LCD screens are uniquely modern in style, and the liquid crystals that make them work have allowed humanity to create slimmer, more portable technology than</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="single-project" style="background: url(img/p2.jpg);">
-                    <div class="overlay overlay-content">
-                        <h4>Vector Illustration</h4>
-                        <p>LCD screens are uniquely modern in style, and the liquid crystals that make them work have allowed humanity to create slimmer, more portable technology than</p>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4">
-                <div class="single-project" style="background: url(img/p3.jpg);">
-                    <div class="overlay overlay-content">
-                        <h4>Vector Illustration</h4>
-                        <p>LCD screens are uniquely modern in style, and the liquid crystals that make them work have allowed humanity to create slimmer, more portable technology than</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Project Area -->
-<!-- Start Begining Area -->
-<section class="section-gap beginning-area">
-    <div class="container">
-        <div class="row justify-content-end">
-            <div class="col-lg-5">
-                <div class="begining-content">
-                    <h2>From the part of beginning</h2>
-                    <p>Usage of the Internet is becoming more common due to rapid advancement of technology and the power of globalization. Societies.</p>
-                    <a href="#">Get Started</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- End Begining Area -->
-<!-- Start Contact Area -->
-<section class="section-gap contact-area">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-lg-4 col-md-5">
-                <div class="contact-address">
-                    <div class="single-address d-flex">
-                        <div class="icon">
-                            <span class="lnr lnr-pushpin"></span>
-                        </div>
-                        <div class="desc">
-                            <h5>Address</h5>
-                            <p>56/8, panthapath, west dhanmondi, kalabagan, <br> Dhaka - 1205, Bangladesh</p>
-                        </div>
-                    </div>
-                    <div class="single-address mt-30 d-flex">
-                        <div class="icon">
-                            <span class="lnr lnr-earth"></span>
-                        </div>
-                        <div class="desc">
-                            <h5>Email Address</h5>
-                            <a href="mailto:demo@gmail.com">info@dataarc.com</a> <br>
-                            <a href="mailto:demo@gmail.com">support@dataarc.com</a>
-                        </div>
-                    </div>
-                    <div class="single-address mt-30 d-flex">
-                        <div class="icon">
-                            <span class="lnr lnr-phone"></span>
-                        </div>
-                        <div class="desc">
-                            <h5>Phone Number</h5>
-                            <a href="tel:1254758">012 4562 982 3612</a> <br>
-                            <a href="tel:1254758">012 6321 956 4587</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-8 ml-auto col-md-7">
-                <form id="myForm" method="post" class="contact-form text-right">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <input type="text" name="fname" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mt-10" required>
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" name="fname" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mt-10" required>
-                        </div>
-                        <div class="col-lg-12">
-                            <input type="text" name="fname" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mt-10" required>
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="email" name="email" placeholder="Enter email address" pattern="[A-Za-z0-9._%+-]+@@[A-Za-z0-9.-]+\.[A-Za-z]{1,63}$" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter email address'" class="common-input mt-10" required>
-                        </div>
-                        <div class="col-lg-6">
-                            <input type="text" name="fname" placeholder="Enter your name" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Enter your name'" class="common-input mt-10" required>
-                        </div>
-                        <div class="col-lg-12">
-                            <textarea class="common-textarea mt-10" name="message" placeholder="Messege" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Messege'" required></textarea>
-                        </div>
-                        <div class="col-lg-12">
-                            <button class="primary-btn white-bg d-inline-flex align-items-center mt-10 ml-auto"><span class="mr-10">Send Message</span><span class="lnr lnr-arrow-right"></span></button> <br>
-                            <div class="alert-msg"></div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-        </div>
-    </div>
-</section>
-<!-- Start Contact Area -->
-<section class="subscription-area">
-    <div class="container">
-        <div class="row justify-content-between">
-            <div class="col-lg-5">
-                <div class="subscribe-content">
-                    <h3 class="text-white">Subscribe for our Newsletter</h3>
-                    <p class="text-white mb-0">We won’t send any kind of spam</p>
-                </div>
-            </div>
-            <div class="col-lg-6">
-                <div id="mc_embed_signup">
-                    <form target="_blank" novalidate action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&id=92a4423d01" method="get" class="subscription relative">
-                        <input type="email" name="EMAIL" placeholder="Email address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email address'" required>
-                        <div style="position: absolute; left: -5000px;">
-                            <input type="text" name="b_36c4fd991d266f23781ded980_aefe40901a" tabindex="-1" value="">
-                        </div>
-                        <button class="primary-btn hover d-inline-flex align-items-center"><span class="mr-10">Get Started</span><span class="lnr lnr-arrow-right"></span></button>
-                        <div class="info"></div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+@section Scripts{
+    <environment include="Development">
+        <link rel="stylesheet" href="~/lib/nanogallery2/dist/css/nanogallery2.min.css">
+        <script src="~/lib/nanogallery2/dist/jquery.nanogallery2.min.js"></script>
+    </environment>
+    <environment exclude="Development">
+        <link rel="stylesheet" href="https://unpkg.com/nanogallery2@2.3.0/dist/css/nanogallery2.min.css"
+              asp-fallback-href="~/lib/nanogallery2/dist/css/nanogallery2.min.css"
+              crossorigin="anonymous"
+              asp-fallback-test-class="nGY2"
+              asp-fallback-test-property="box-sizing"
+              asp-fallback-test-value="content-box"
+              integrity="sha384-EvuSVIvF27w8u30bPH0vTvLwduo2YCO3xkY3rFiYd5BcJR8TLeBhJqvezM1u9I+K" />
+        <script src="https://unpkg.com/nanogallery2@2.3.0/dist/jquery.nanogallery2.min.js"
+                asp-fallback-src="~/lib/nanogallery2/dist/jquery.nanogallery2.min.js"
+                integrity="sha384-m94n8WcQe7RgmU3wztgKFmrDSX1i6CheVOXtBtt8Ufv1+XFDZ+EdpnNpWQ/+SuRA"
+                crossorigin="anonymous"></script>
+    </environment>
+}

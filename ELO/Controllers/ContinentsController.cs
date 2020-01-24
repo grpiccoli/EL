@@ -22,7 +22,7 @@ namespace ELO.Controllers
         // GET: Continents
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Continent.ToListAsync());
+            return View(await _context.Continents.ToListAsync());
         }
 
         // GET: Continents/Details/5
@@ -33,8 +33,8 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var continent = await _context.Continent
-                .SingleOrDefaultAsync(m => m.ID == id);
+            var continent = await _context.Continents
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (continent == null)
             {
                 return NotFound();
@@ -54,7 +54,7 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ISO,Name,Latitude,Longitude")] Continent continent)
+        public async Task<IActionResult> Create([Bind("Id,ISO,Name,Latitude,Longitude")] Continent continent)
         {
             if (ModelState.IsValid)
             {
@@ -73,7 +73,7 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var continent = await _context.Continent.SingleOrDefaultAsync(m => m.ID == id);
+            var continent = await _context.Continents.SingleOrDefaultAsync(m => m.Id == id);
             if (continent == null)
             {
                 return NotFound();
@@ -86,9 +86,9 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,ISO,Name,Latitude,Longitude")] Continent continent)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ISO,Name,Latitude,Longitude")] Continent continent)
         {
-            if (id != continent.ID)
+            if (id != continent.Id)
             {
                 return NotFound();
             }
@@ -102,7 +102,7 @@ namespace ELO.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ContinentExists(continent.ID))
+                    if (!ContinentExists(continent.Id))
                     {
                         return NotFound();
                     }
@@ -124,8 +124,8 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var continent = await _context.Continent
-                .SingleOrDefaultAsync(m => m.ID == id);
+            var continent = await _context.Continents
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (continent == null)
             {
                 return NotFound();
@@ -139,15 +139,15 @@ namespace ELO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var continent = await _context.Continent.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Continent.Remove(continent);
+            var continent = await _context.Continents.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Continents.Remove(continent);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ContinentExists(int id)
         {
-            return _context.Continent.Any(e => e.ID == id);
+            return _context.Continents.Any(e => e.Id == id);
         }
     }
 }

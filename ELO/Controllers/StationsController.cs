@@ -22,7 +22,7 @@ namespace ELO.Controllers
         // GET: Stations
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Station.Include(s => s.Region);
+            var applicationDbContext = _context.Stations.Include(s => s.Region);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -30,7 +30,7 @@ namespace ELO.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Map()
         {
-            var applicationDbContext = _context.Station
+            var applicationDbContext = _context.Stations
                 .Include(a => a.Region)
                 .Include(a => a.Coordinates)
                 .Where(c => c.Coordinates.Count() > 0);
@@ -45,9 +45,9 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var station = await _context.Station
+            var station = await _context.Stations
                 .Include(s => s.Region)
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (station == null)
             {
                 return NotFound();
@@ -59,7 +59,7 @@ namespace ELO.Controllers
         // GET: Stations/Create
         public IActionResult Create()
         {
-            ViewData["RegionID"] = new SelectList(_context.Region, "ID", "ID");
+            ViewData["RegionId"] = new SelectList(_context.Regions, "Id", "Id");
             return View();
         }
 
@@ -68,7 +68,7 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,RegionID,Area,Name,Latitude,Longitude")] Station station)
+        public async Task<IActionResult> Create([Bind("Id,RegionId,Area,Name,Latitude,Longitude")] Station station)
         {
             if (ModelState.IsValid)
             {
@@ -76,7 +76,7 @@ namespace ELO.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RegionID"] = new SelectList(_context.Region, "ID", "ID", station.RegionID);
+            ViewData["RegionId"] = new SelectList(_context.Regions, "Id", "Id", station.RegionId);
             return View(station);
         }
 
@@ -88,12 +88,12 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var station = await _context.Station.SingleOrDefaultAsync(m => m.ID == id);
+            var station = await _context.Stations.SingleOrDefaultAsync(m => m.Id == id);
             if (station == null)
             {
                 return NotFound();
             }
-            ViewData["RegionID"] = new SelectList(_context.Region, "ID", "ID", station.RegionID);
+            ViewData["RegionId"] = new SelectList(_context.Regions, "Id", "Id", station.RegionId);
             return View(station);
         }
 
@@ -102,9 +102,9 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(string id, [Bind("ID,RegionID,Area,Name,Latitude,Longitude")] Station station)
+        public async Task<IActionResult> Edit(string id, [Bind("Id,RegionId,Area,Name,Latitude,Longitude")] Station station)
         {
-            if (id != station.ID)
+            if (id != station.Id)
             {
                 return NotFound();
             }
@@ -118,7 +118,7 @@ namespace ELO.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!StationExists(station.ID))
+                    if (!StationExists(station.Id))
                     {
                         return NotFound();
                     }
@@ -129,7 +129,7 @@ namespace ELO.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RegionID"] = new SelectList(_context.Region, "ID", "ID", station.RegionID);
+            ViewData["RegionId"] = new SelectList(_context.Regions, "Id", "Id", station.RegionId);
             return View(station);
         }
 
@@ -141,9 +141,9 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var station = await _context.Station
+            var station = await _context.Stations
                 .Include(s => s.Region)
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (station == null)
             {
                 return NotFound();
@@ -157,15 +157,15 @@ namespace ELO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(string id)
         {
-            var station = await _context.Station.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Station.Remove(station);
+            var station = await _context.Stations.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Stations.Remove(station);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool StationExists(string id)
         {
-            return _context.Station.Any(e => e.ID == id);
+            return _context.Stations.Any(e => e.Id == id);
         }
     }
 }

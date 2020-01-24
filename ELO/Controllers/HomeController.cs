@@ -16,6 +16,11 @@ namespace ELO.Controllers
             ViewData["Url"] = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
             return View();
         }
+        public IActionResult IndexOld()
+        {
+            ViewData["Url"] = $"{this.Request.Scheme}://{this.Request.Host}{this.Request.PathBase}";
+            return View();
+        }
 
         public IActionResult Mapa()
         {

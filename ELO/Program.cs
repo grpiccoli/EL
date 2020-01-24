@@ -1,32 +1,14 @@
 ﻿using System;
-using System.IO;
-using System.Net;
-using ELO.Data;
-using ELO.Models;
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Server.Kestrel.Core;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace ELO
 {
-    public class Program
+    public static class Program
     {
         public static void Main(string[] args)
         {
-            var host = CreateWebHostBuilder(args).Build();
-            using (var scope = host.Services.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var context = services.GetRequiredService<ApplicationDbContext>();
-                CountriesInitializer.Initialize(context);
-                LocationsInitializer.Initialize(context);
-                ArrivalsInitializer.Initialize(context);
-                ExportsInitializer.Initialize(context);
-                StationsInitializer.Initialize(context);
-                InstitutionsInitializer.Initialize(context);
-            }
-            host.Run();
+            CreateWebHostBuilder(args).Build().Run();
         }
 
         public static IWebHostBuilder CreateWebHostBuilder(string[] args) =>

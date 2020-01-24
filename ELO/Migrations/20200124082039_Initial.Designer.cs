@@ -4,18 +4,20 @@ using ELO.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace ELO.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20200124082039_Initial")]
+    partial class Initial
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
+                .HasAnnotation("ProductVersion", "2.2.4-servicing-10062")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -114,13 +116,13 @@ namespace ELO.Migrations
 
             modelBuilder.Entity("ELO.Models.Arrival", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Caleta");
 
-                    b.Property<int>("ComunaID");
+                    b.Property<int>("CommuneId");
 
                     b.Property<DateTime>("Date");
 
@@ -128,11 +130,11 @@ namespace ELO.Migrations
 
                     b.Property<int>("Species");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ComunaID");
+                    b.HasIndex("CommuneId");
 
-                    b.ToTable("Arrival");
+                    b.ToTable("Arrivals");
                 });
 
             modelBuilder.Entity("ELO.Models.Author", b =>
@@ -164,9 +166,9 @@ namespace ELO.Migrations
 
                     b.Property<bool?>("Certificable");
 
-                    b.Property<int>("CompanyId");
+                    b.Property<int>("CommuneId");
 
-                    b.Property<int>("ComunaId");
+                    b.Property<int>("CompanyId");
 
                     b.Property<int?>("CuerpoAgua");
 
@@ -180,11 +182,30 @@ namespace ELO.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CommuneId");
+
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("ComunaId");
-
                     b.ToTable("Centre");
+                });
+
+            modelBuilder.Entity("ELO.Models.Commune", b =>
+                {
+                    b.Property<int>("Id");
+
+                    b.Property<int>("CS");
+
+                    b.Property<int>("DE");
+
+                    b.Property<string>("Name");
+
+                    b.Property<int>("ProvinceId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProvinceId");
+
+                    b.ToTable("Communes");
                 });
 
             modelBuilder.Entity("ELO.Models.Company", b =>
@@ -199,31 +220,12 @@ namespace ELO.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Company");
-                });
-
-            modelBuilder.Entity("ELO.Models.Comuna", b =>
-                {
-                    b.Property<int>("ID");
-
-                    b.Property<int>("CS");
-
-                    b.Property<int>("DE");
-
-                    b.Property<string>("Name");
-
-                    b.Property<int>("ProvinciaID");
-
-                    b.HasKey("ID");
-
-                    b.HasIndex("ProvinciaID");
-
-                    b.ToTable("Comuna");
+                    b.ToTable("Companies");
                 });
 
             modelBuilder.Entity("ELO.Models.Continent", b =>
                 {
-                    b.Property<int>("ID");
+                    b.Property<int>("Id");
 
                     b.Property<string>("ISO");
 
@@ -233,59 +235,59 @@ namespace ELO.Migrations
 
                     b.Property<string>("Name");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
-                    b.ToTable("Continent");
+                    b.ToTable("Continents");
                 });
 
             modelBuilder.Entity("ELO.Models.Coordinate", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<int?>("CentreId");
 
-                    b.Property<int?>("ComunaID");
+                    b.Property<int?>("CommuneId");
 
-                    b.Property<int?>("CountryID");
+                    b.Property<int?>("CountryId");
 
                     b.Property<double>("Latitude");
 
                     b.Property<double>("Longitude");
 
-                    b.Property<int?>("ProvinciaID");
+                    b.Property<int?>("ProvinceId");
 
-                    b.Property<int?>("RegionID");
+                    b.Property<int?>("RegionId");
 
-                    b.Property<string>("StationID");
+                    b.Property<string>("StationId");
 
                     b.Property<int>("Vertex");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
                     b.HasIndex("CentreId");
 
-                    b.HasIndex("ComunaID");
+                    b.HasIndex("CommuneId");
 
-                    b.HasIndex("CountryID");
+                    b.HasIndex("CountryId");
 
-                    b.HasIndex("ProvinciaID");
+                    b.HasIndex("ProvinceId");
 
-                    b.HasIndex("RegionID");
+                    b.HasIndex("RegionId");
 
-                    b.HasIndex("StationID");
+                    b.HasIndex("StationId");
 
-                    b.ToTable("Coordinate");
+                    b.ToTable("Coordinates");
                 });
 
             modelBuilder.Entity("ELO.Models.Country", b =>
                 {
-                    b.Property<int>("ID");
+                    b.Property<int>("Id");
 
                     b.Property<string>("Capital");
 
-                    b.Property<int>("ContinentID");
+                    b.Property<int>("ContinentId");
 
                     b.Property<string>("ISO2");
 
@@ -297,20 +299,20 @@ namespace ELO.Migrations
 
                     b.Property<string>("Name");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("ContinentID");
+                    b.HasIndex("ContinentId");
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("ELO.Models.Export", b =>
                 {
-                    b.Property<int>("ID")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("CountryID");
+                    b.Property<int>("CountryId");
 
                     b.Property<DateTime>("Date");
 
@@ -320,36 +322,36 @@ namespace ELO.Migrations
 
                     b.Property<int>("Processing");
 
-                    b.Property<int>("RegionID");
+                    b.Property<int>("RegionId");
 
                     b.Property<int>("Species");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("CountryID");
+                    b.HasIndex("CountryId");
 
-                    b.HasIndex("RegionID");
+                    b.HasIndex("RegionId");
 
-                    b.ToTable("Export");
+                    b.ToTable("Exports");
                 });
 
-            modelBuilder.Entity("ELO.Models.Provincia", b =>
+            modelBuilder.Entity("ELO.Models.Province", b =>
                 {
-                    b.Property<int>("ID");
+                    b.Property<int>("Id");
 
                     b.Property<string>("Name");
 
                     b.Property<int>("Population");
 
-                    b.Property<int>("RegionID");
+                    b.Property<int>("RegionId");
 
                     b.Property<int>("Surface");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("RegionID");
+                    b.HasIndex("RegionId");
 
-                    b.ToTable("Provincia");
+                    b.ToTable("Provinces");
                 });
 
             modelBuilder.Entity("ELO.Models.Publication", b =>
@@ -387,7 +389,7 @@ namespace ELO.Migrations
 
             modelBuilder.Entity("ELO.Models.Region", b =>
                 {
-                    b.Property<int>("ID");
+                    b.Property<int>("Id");
 
                     b.Property<string>("MapCode");
 
@@ -399,14 +401,14 @@ namespace ELO.Migrations
 
                     b.Property<int>("Surface");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
-                    b.ToTable("Region");
+                    b.ToTable("Regions");
                 });
 
             modelBuilder.Entity("ELO.Models.Station", b =>
                 {
-                    b.Property<string>("ID");
+                    b.Property<string>("Id");
 
                     b.Property<string>("Area");
 
@@ -416,13 +418,13 @@ namespace ELO.Migrations
 
                     b.Property<string>("Name");
 
-                    b.Property<int>("RegionID");
+                    b.Property<int>("RegionId");
 
-                    b.HasKey("ID");
+                    b.HasKey("Id");
 
-                    b.HasIndex("RegionID");
+                    b.HasIndex("RegionId");
 
-                    b.ToTable("Station");
+                    b.ToTable("Stations");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
@@ -526,16 +528,14 @@ namespace ELO.Migrations
 
                     b.Property<string>("RoleAssigner");
 
-                    b.ToTable("AppUserRole");
-
                     b.HasDiscriminator().HasValue("AppUserRole");
                 });
 
             modelBuilder.Entity("ELO.Models.Arrival", b =>
                 {
-                    b.HasOne("ELO.Models.Comuna", "Comuna")
+                    b.HasOne("ELO.Models.Commune", "Commune")
                         .WithMany("Arrivals")
-                        .HasForeignKey("ComunaID")
+                        .HasForeignKey("CommuneId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -549,22 +549,22 @@ namespace ELO.Migrations
 
             modelBuilder.Entity("ELO.Models.Centre", b =>
                 {
+                    b.HasOne("ELO.Models.Commune", "Commune")
+                        .WithMany()
+                        .HasForeignKey("CommuneId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
                     b.HasOne("ELO.Models.Company", "Company")
                         .WithMany("Centres")
                         .HasForeignKey("CompanyId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("ELO.Models.Comuna", "Comuna")
-                        .WithMany()
-                        .HasForeignKey("ComunaId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ELO.Models.Comuna", b =>
+            modelBuilder.Entity("ELO.Models.Commune", b =>
                 {
-                    b.HasOne("ELO.Models.Provincia", "Provincia")
-                        .WithMany("Comunas")
-                        .HasForeignKey("ProvinciaID")
+                    b.HasOne("ELO.Models.Province", "Province")
+                        .WithMany("Communes")
+                        .HasForeignKey("ProvinceId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -574,32 +574,32 @@ namespace ELO.Migrations
                         .WithMany("Coordinates")
                         .HasForeignKey("CentreId");
 
-                    b.HasOne("ELO.Models.Comuna", "Comuna")
+                    b.HasOne("ELO.Models.Commune", "Commune")
                         .WithMany("Coordinates")
-                        .HasForeignKey("ComunaID");
+                        .HasForeignKey("CommuneId");
 
                     b.HasOne("ELO.Models.Country", "Country")
                         .WithMany()
-                        .HasForeignKey("CountryID");
+                        .HasForeignKey("CountryId");
 
-                    b.HasOne("ELO.Models.Provincia", "Provincia")
+                    b.HasOne("ELO.Models.Province", "Province")
                         .WithMany("Coordinates")
-                        .HasForeignKey("ProvinciaID");
+                        .HasForeignKey("ProvinceId");
 
                     b.HasOne("ELO.Models.Region", "Region")
                         .WithMany("Coordinates")
-                        .HasForeignKey("RegionID");
+                        .HasForeignKey("RegionId");
 
                     b.HasOne("ELO.Models.Station", "Station")
                         .WithMany("Coordinates")
-                        .HasForeignKey("StationID");
+                        .HasForeignKey("StationId");
                 });
 
             modelBuilder.Entity("ELO.Models.Country", b =>
                 {
                     b.HasOne("ELO.Models.Continent", "Continent")
                         .WithMany("Countries")
-                        .HasForeignKey("ContinentID")
+                        .HasForeignKey("ContinentId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -607,20 +607,20 @@ namespace ELO.Migrations
                 {
                     b.HasOne("ELO.Models.Country", "Country")
                         .WithMany("Exports")
-                        .HasForeignKey("CountryID")
+                        .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("ELO.Models.Region", "Region")
                         .WithMany("Exports")
-                        .HasForeignKey("RegionID")
+                        .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("ELO.Models.Provincia", b =>
+            modelBuilder.Entity("ELO.Models.Province", b =>
                 {
                     b.HasOne("ELO.Models.Region", "Region")
-                        .WithMany("Provincias")
-                        .HasForeignKey("RegionID")
+                        .WithMany("Provinces")
+                        .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -636,7 +636,7 @@ namespace ELO.Migrations
                 {
                     b.HasOne("ELO.Models.Region", "Region")
                         .WithMany("Stations")
-                        .HasForeignKey("RegionID")
+                        .HasForeignKey("RegionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

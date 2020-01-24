@@ -22,7 +22,7 @@ namespace ELO.Controllers
         // GET: Exports
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Export
+            var applicationDbContext = _context.Exports
                 .Include(e => e.Country)
                 .Include(e => e.Region);
             return View(await applicationDbContext.ToListAsync());
@@ -32,7 +32,7 @@ namespace ELO.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Summary()
         {
-            var applicationDbContext = _context.Export;
+            var applicationDbContext = _context.Exports;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -44,10 +44,10 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var export = await _context.Export
+            var export = await _context.Exports
                 .Include(e => e.Country)
                 .Include(e => e.Region)
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (export == null)
             {
                 return NotFound();
@@ -59,8 +59,8 @@ namespace ELO.Controllers
         // GET: Exports/Create
         public IActionResult Create()
         {
-            ViewData["CountryID"] = new SelectList(_context.Set<Country>(), "ID", "ID");
-            ViewData["RegionID"] = new SelectList(_context.Set<Region>(), "ID", "ID");
+            ViewData["CountryId"] = new SelectList(_context.Set<Country>(), "Id", "Id");
+            ViewData["RegionId"] = new SelectList(_context.Set<Region>(), "Id", "Id");
             return View();
         }
 
@@ -69,7 +69,7 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,RegionID,CountryID,Species,Processing,Date,Kg,FOB")] Export export)
+        public async Task<IActionResult> Create([Bind("Id,RegionId,CountryId,Species,Processing,Date,Kg,FOB")] Export export)
         {
             if (ModelState.IsValid)
             {
@@ -77,8 +77,8 @@ namespace ELO.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryID"] = new SelectList(_context.Set<Country>(), "ID", "ID", export.CountryID);
-            ViewData["RegionID"] = new SelectList(_context.Set<Region>(), "ID", "ID", export.RegionID);
+            ViewData["CountryId"] = new SelectList(_context.Set<Country>(), "Id", "Id", export.CountryId);
+            ViewData["RegionId"] = new SelectList(_context.Set<Region>(), "Id", "Id", export.RegionId);
             return View(export);
         }
 
@@ -90,13 +90,13 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var export = await _context.Export.SingleOrDefaultAsync(m => m.ID == id);
+            var export = await _context.Exports.SingleOrDefaultAsync(m => m.Id == id);
             if (export == null)
             {
                 return NotFound();
             }
-            ViewData["CountryID"] = new SelectList(_context.Set<Country>(), "ID", "ID", export.CountryID);
-            ViewData["RegionID"] = new SelectList(_context.Set<Region>(), "ID", "ID", export.RegionID);
+            ViewData["CountryId"] = new SelectList(_context.Set<Country>(), "Id", "Id", export.CountryId);
+            ViewData["RegionId"] = new SelectList(_context.Set<Region>(), "Id", "Id", export.RegionId);
             return View(export);
         }
 
@@ -105,9 +105,9 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,RegionID,CountryID,Species,Processing,Date,Kg,FOB")] Export export)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RegionId,CountryId,Species,Processing,Date,Kg,FOB")] Export export)
         {
-            if (id != export.ID)
+            if (id != export.Id)
             {
                 return NotFound();
             }
@@ -121,7 +121,7 @@ namespace ELO.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ExportExists(export.ID))
+                    if (!ExportExists(export.Id))
                     {
                         return NotFound();
                     }
@@ -132,8 +132,8 @@ namespace ELO.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["CountryID"] = new SelectList(_context.Set<Country>(), "ID", "ID", export.CountryID);
-            ViewData["RegionID"] = new SelectList(_context.Set<Region>(), "ID", "ID", export.RegionID);
+            ViewData["CountryId"] = new SelectList(_context.Set<Country>(), "Id", "Id", export.CountryId);
+            ViewData["RegionId"] = new SelectList(_context.Set<Region>(), "Id", "Id", export.RegionId);
             return View(export);
         }
 
@@ -145,10 +145,10 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var export = await _context.Export
+            var export = await _context.Exports
                 .Include(e => e.Country)
                 .Include(e => e.Region)
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (export == null)
             {
                 return NotFound();
@@ -162,15 +162,15 @@ namespace ELO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var export = await _context.Export.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Export.Remove(export);
+            var export = await _context.Exports.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Exports.Remove(export);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ExportExists(int id)
         {
-            return _context.Export.Any(e => e.ID == id);
+            return _context.Exports.Any(e => e.Id == id);
         }
     }
 }

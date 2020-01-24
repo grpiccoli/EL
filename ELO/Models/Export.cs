@@ -1,18 +1,15 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ELO.Models
 {
     public class Export
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        public int RegionID { get; set; }
+        public int RegionId { get; set; }
 
-        public int CountryID { get; set; }
+        public int CountryId { get; set; }
 
         [Display(Name = "Destino")]
         public virtual Country Country { get; set; }

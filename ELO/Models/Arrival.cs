@@ -1,20 +1,17 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace ELO.Models
 {
     public class Arrival
     {
-        //ID
-        public int ID { get; set; }
+        //Id
+        public int Id { get; set; }
 
         //PARent
-        public int ComunaID { get; set; }
+        public int CommuneId { get; set; }
 
-        public virtual Comuna Comuna { get; set; }
+        public virtual Commune Commune { get; set; }
 
         //Att
         public string Caleta { get; set; }

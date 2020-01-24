@@ -4,16 +4,16 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ELO.Models
 {
-    public class Comuna
+    public class Commune
     {
         [Display(Name = "Código de Comuna")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         //Parent
-        public int ProvinciaID { get; set; }
+        public int ProvinceId { get; set; }
 
-        public virtual Provincia Provincia { get; set; }
+        public virtual Province Province { get; set; }
 
         //ATt
         [Display(Name = "Nombre de Comuna")]

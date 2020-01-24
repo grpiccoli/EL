@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -22,7 +20,7 @@ namespace ELO.Controllers
         // GET: Comunas
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Comuna.Include(c => c.Provincia);
+            var applicationDbContext = _context.Communes.Include(c => c.Province);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -34,9 +32,9 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var comuna = await _context.Comuna
-                .Include(c => c.Provincia)
-                .SingleOrDefaultAsync(m => m.ID == id);
+            var comuna = await _context.Communes
+                .Include(c => c.Province)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (comuna == null)
             {
                 return NotFound();
@@ -48,7 +46,7 @@ namespace ELO.Controllers
         // GET: Comunas/Create
         public IActionResult Create()
         {
-            ViewData["ProvinciaID"] = new SelectList(_context.Provincia, "ID", "ID");
+            ViewData["ProvinceId"] = new SelectList(_context.Provinces, "Id", "Id");
             return View();
         }
 
@@ -57,7 +55,7 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ProvinciaID,Name,DE,CS")] Comuna comuna)
+        public async Task<IActionResult> Create([Bind("Id,ProvinceId,Name,DE,CS")] Commune comuna)
         {
             if (ModelState.IsValid)
             {
@@ -65,7 +63,7 @@ namespace ELO.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProvinciaID"] = new SelectList(_context.Provincia, "ID", "ID", comuna.ProvinciaID);
+            ViewData["ProvinceId"] = new SelectList(_context.Provinces, "Id", "Id", comuna.ProvinceId);
             return View(comuna);
         }
 
@@ -77,12 +75,12 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var comuna = await _context.Comuna.SingleOrDefaultAsync(m => m.ID == id);
+            var comuna = await _context.Communes.SingleOrDefaultAsync(m => m.Id == id);
             if (comuna == null)
             {
                 return NotFound();
             }
-            ViewData["ProvinciaID"] = new SelectList(_context.Provincia, "ID", "ID", comuna.ProvinciaID);
+            ViewData["ProvinceId"] = new SelectList(_context.Provinces, "Id", "Id", comuna.ProvinceId);
             return View(comuna);
         }
 
@@ -91,9 +89,9 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,ProvinciaID,Name,DE,CS")] Comuna comuna)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,ProvinceId,Name,DE,CS")] Commune comuna)
         {
-            if (id != comuna.ID)
+            if (id != comuna.Id)
             {
                 return NotFound();
             }
@@ -107,7 +105,7 @@ namespace ELO.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ComunaExists(comuna.ID))
+                    if (!ComunaExists(comuna.Id))
                     {
                         return NotFound();
                     }
@@ -118,7 +116,7 @@ namespace ELO.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ProvinciaID"] = new SelectList(_context.Provincia, "ID", "ID", comuna.ProvinciaID);
+            ViewData["ProvinceId"] = new SelectList(_context.Provinces, "Id", "Id", comuna.ProvinceId);
             return View(comuna);
         }
 
@@ -130,9 +128,9 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var comuna = await _context.Comuna
-                .Include(c => c.Provincia)
-                .SingleOrDefaultAsync(m => m.ID == id);
+            var comuna = await _context.Communes
+                .Include(c => c.Province)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (comuna == null)
             {
                 return NotFound();
@@ -146,15 +144,15 @@ namespace ELO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var comuna = await _context.Comuna.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Comuna.Remove(comuna);
+            var comuna = await _context.Communes.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Communes.Remove(comuna);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ComunaExists(int id)
         {
-            return _context.Comuna.Any(e => e.ID == id);
+            return _context.Communes.Any(e => e.Id == id);
         }
     }
 }

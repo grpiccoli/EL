@@ -4,13 +4,13 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace ELO.Models
 {
-    public class Provincia
+    public class Province
     {
         [Display(Name = "Código de Provincia")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
-        public int RegionID { get; set; }
+        public int RegionId { get; set; }
 
         public virtual Region Region { get; set; }
 
@@ -21,7 +21,7 @@ namespace ELO.Models
         [Display(Name = "Población")]
         public int Population { get; set; }
 
-        public ICollection<Comuna> Comunas { get; set; }
+        public ICollection<Commune> Communes { get; set; }
         public ICollection<Coordinate> Coordinates { get; set; }
     }
 }

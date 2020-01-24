@@ -8,7 +8,7 @@ namespace ELO.Models
     {
         [Display(Name = "Código de Región")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         [Display(Name = "Superficie")]
         public int Surface { get; set; }
@@ -24,7 +24,7 @@ namespace ELO.Models
 
         public string MapCode { get; set; }
 
-        public ICollection<Provincia> Provincias { get; set; }
+        public ICollection<Province> Provinces { get; set; }
         public ICollection<Station> Stations { get; set; }
         public ICollection<Coordinate> Coordinates { get; set; }
         public ICollection<Export> Exports { get; set; }

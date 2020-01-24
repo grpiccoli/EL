@@ -7,6 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20181102002404_Initial.cs" />
+    <Compile Remove="Migrations\20181102002404_Initial.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="scripts\test.sql" />
   </ItemGroup>
 
@@ -23,6 +28,7 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Razor.Design" Version="2.2.0" PrivateAssets="All" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.3" PrivateAssets="All" />
+    <PackageReference Include="Pluralize.NET.Core" Version="1.0.0" />
     <PackageReference Include="Sendgrid" Version="9.11.0" />
   </ItemGroup>
 

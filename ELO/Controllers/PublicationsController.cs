@@ -166,7 +166,7 @@ namespace ELO.Controllers
                     //order     asc                 desc
                     rep = $"http://repositorio.uchile.cl/discover?query={q}&rpp={rpp}&page={pg}&sort_by={sort_by}&order={order}";
 
-                    var co = _context.Company.SingleOrDefault(c => c.Acronym == u);
+                    var co = _context.Companies.SingleOrDefault(c => c.Acronym == u);
                     try
                     {
                         HttpClient hc = new HttpClient();
@@ -246,7 +246,7 @@ namespace ELO.Controllers
                 {
                     //15s
                     rep = $"http://medioteca.ulagos.cl/biblioscripts/titulo_claves.idc?texto={q}";
-                    var co = _context.Company.SingleOrDefault(c => c.Acronym == u);
+                    var co = _context.Companies.SingleOrDefault(c => c.Acronym == u);
                     try
                     {
                         HttpClient hc = new HttpClient();
@@ -304,7 +304,7 @@ namespace ELO.Controllers
                     rep = "http://utalca-primo.hosted.exlibrisgroup.com/primo_library/libweb/action/search.do?" +
                     $"fn=search&ct=search&initialSearch=true&mode=Basic&tab=utalca_scope&pag=nxt&indx={(pg - 1) * rpp + 1 - 10}&dum=true&srt={srt_utal}&vid=UTALCA&frbg=&tb=t&vl(freeText0)={q}" +
                     "&scp.scps=scope:(UTALCA),scope:(utalca_aleph),scope:(utalca_dspace),scope:(utalca_cursos),scope:(utalca_ebooks),primo_central_multiple_fe&vl(1147761831UI1)=tesis&vl(1UIStartWith0)=contains&vl(1147761834UI0)=any&vl(1147761834UI0)=title&vl(1147761834UI0)=any";
-                    var co = _context.Company.SingleOrDefault(c => c.Acronym == u);
+                    var co = _context.Companies.SingleOrDefault(c => c.Acronym == u);
 
                     try
                     {
@@ -376,7 +376,7 @@ namespace ELO.Controllers
                 {
                     //12s
                     rep = $"http://www.bibliotecadigital.umag.cl/discover?query={q}&rpp={rpp}&page={pg}";
-                    var co = _context.Company.SingleOrDefault(c => c.Acronym == u);
+                    var co = _context.Companies.SingleOrDefault(c => c.Acronym == u);
 
                     try
                     {
@@ -437,7 +437,7 @@ namespace ELO.Controllers
                 {
                     //13s
                     rep = $"http://www.ust.cl/investigacion/publicaciones/publicaciones-indexadas/page/{pg}/?nombre={q}";
-                    var co = _context.Company.SingleOrDefault(c => c.Acronym == u);
+                    var co = _context.Companies.SingleOrDefault(c => c.Acronym == u);
                     try
                     {
                         HttpClient hc = new HttpClient();
@@ -505,7 +505,7 @@ namespace ELO.Controllers
                     //sort_by   dc.date.issued_dt   dc.title_sort   score
                     //order     asc                 desc
                     rep = $"http://repositoriodigital.ucsc.cl/discover?scope=/&submit=&query={q}&rpp={rpp}&page={pg}&sort_by={sort_by}&order={order}";
-                    var co = _context.Company.SingleOrDefault(c => c.Acronym == u);
+                    var co = _context.Companies.SingleOrDefault(c => c.Acronym == u);
 
                     try
                     {
@@ -569,7 +569,7 @@ namespace ELO.Controllers
                     //order DESC ASC
                     rep = "http://repositoriodigital.uct.cl/advanced-search?conjunction1=AND&field1=ANY&num_search_field=3&etal=0&rpp=" +
                     $"{rpp}&results_per_page={rpp}&page={pg}&query1={q}&sort_by={srt_uct}&order={order.ToUpper()}";
-                    var co = _context.Company.SingleOrDefault(c => c.Acronym == u);
+                    var co = _context.Companies.SingleOrDefault(c => c.Acronym == u);
 
                     try
                     {
@@ -638,7 +638,7 @@ namespace ELO.Controllers
                     //sf        ftitre      fauteur     contributeur        udate       sdxscore
                     rep = "http://cybertesis.uach.cl/sdx/uach/resultats-filtree.xsp?biblio_op=or&figures_op=or&tableaux_op=or&citations_op=or&notes_op=or&base=documents&position=2&texte_op=or&titres=" +
                     $"{q}&tableaux={q}&figures={q}&biblio={q}&notes={q}&citations={q}&texte={q}&hpp={rpp}&p={pg}&sf={srt_uach}";
-                    var co = _context.Company.SingleOrDefault(c => c.Acronym == u);
+                    var co = _context.Companies.SingleOrDefault(c => c.Acronym == u);
 
                     try
                     {
@@ -702,7 +702,7 @@ namespace ELO.Controllers
                     //order     asc                 desc
                     rep = "http://repositorio.udec.cl/discover?group_by=none&etal=0&rpp=" +
                     $"{rpp}&page={pg}&query={q}&sort_by={sort_by}&order={order}";
-                    var co = _context.Company.SingleOrDefault(c => c.Acronym == u);
+                    var co = _context.Companies.SingleOrDefault(c => c.Acronym == u);
 
                     try
                     {
@@ -754,7 +754,7 @@ namespace ELO.Controllers
                 {
                     //14s
                     rep = $"http://opac.pucv.cl/cgi-bin/wxis.exe/iah/scripts/?IsisScript=iah.xis&lang=es&base=BDTESIS&nextAction=search&exprSearch={q}&isisFrom={(pg - 1) * rpp + 1}";
-                    var co = _context.Company.SingleOrDefault(c => c.Acronym == u);
+                    var co = _context.Companies.SingleOrDefault(c => c.Acronym == u);
 
                     try
                     {
@@ -823,7 +823,7 @@ namespace ELO.Controllers
                     //sort_by   dc.date.issued_dt   dc.title_sort   score
                     //order     asc                 desc
                     rep = $"https://repositorio.uc.cl/discover?group_by=none&etal=0&rpp={rpp}&page={pg}&query={q}&sort_by={sort_by}&order={order}";
-                    var co = _context.Company.SingleOrDefault(c => c.Acronym == u);
+                    var co = _context.Companies.SingleOrDefault(c => c.Acronym == u);
 
                     try
                     {
@@ -918,7 +918,7 @@ namespace ELO.Controllers
                             url = "93475";
                         }
                         rep = $"http://repositorio.conicyt.cl/handle/10533/{url}/discover?query={q}&page={pg - 1}&rpp={rpp}&sort_by={sort_by}&order={order}";
-                        var co = _context.Company.SingleOrDefault(c => c.Id == 60915000);
+                        var co = _context.Companies.SingleOrDefault(c => c.Id == 60915000);
                         try
                         {
                             HttpClient hc = new HttpClient();
@@ -1040,7 +1040,7 @@ namespace ELO.Controllers
                 if (src.Contains(u))
                 {
                     rep = $"http://subpesca-engine.newtenberg.com/mod/find/cgi/find.cgi?action=query&engine=SwisheFind&rpp={rpp}&cid=514&stid=&iid=613&grclass=&pnid=&pnid_df=&pnid_tf=&pnid_search=678,682,683,684,681,685,510,522,699,679&limit=200&searchon=&channellink=w3:channel&articlelink=w3:article&pvlink=w3:propertyvalue&notarticlecid=&use_cid_owner_on_links=&show_ancestors=1&show_pnid=1&cids=514&keywords={q}&start={(pg - 1) * rpp}&group=0&expanded=1&searchmode=undefined&prepnidtext=&javascript=1";
-                    var co = _context.Company.SingleOrDefault(c => c.Id == 60719000);
+                    var co = _context.Companies.SingleOrDefault(c => c.Id == 60719000);
                     try
                     {
                         HttpClient hc = new HttpClient();
@@ -1090,7 +1090,7 @@ namespace ELO.Controllers
                     //group_by=none
                     rep = "http://repositoriodigital.corfo.cl/discover?query=" +
                     $"{q}&rpp={rpp}&page={pg}&group_by=none&etal=0&sort_by={sort_by.Replace(".issued", "")}&order={order.ToUpper()}";
-                    var co = _context.Company.SingleOrDefault(c => c.Id == 60706000);
+                    var co = _context.Companies.SingleOrDefault(c => c.Id == 60706000);
                     try
                     {
                         HttpClient hc = new HttpClient();
@@ -1151,7 +1151,7 @@ namespace ELO.Controllers
                 if (src.Contains(u))
                 {
                     rep = $"https://scholar.google.com/scholar?q={q}&start={rpp * (pg - 1) + 1}&scisbd={ggl}";
-                    var co = _context.Company.SingleOrDefault(c => c.Id == 55555555);
+                    var co = _context.Companies.SingleOrDefault(c => c.Id == 55555555);
                     try
                     {
                         HttpClient hc = new HttpClient();
@@ -1216,7 +1216,7 @@ namespace ELO.Controllers
                     rep = $"https://scholar.google.cl/scholar?as_q={q}" +
                     "&as_epq=&as_oq=&as_eq=&as_occt=any&as_sauthors=&as_publication=Google+Patents&as_ylo=&as_yhi=&btnG=&hl=en&as_sdt=0%2C5&as_vis=1" +
                     $"&start={rpp * (pg - 1) + 1}&scisbd={ggl}";
-                    var co = _context.Company.SingleOrDefault(c => c.Id == 55555555);
+                    var co = _context.Companies.SingleOrDefault(c => c.Id == 55555555);
                     try
                     {
                         HttpClient hc = new HttpClient();

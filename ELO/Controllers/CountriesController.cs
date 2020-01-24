@@ -23,7 +23,7 @@ namespace ELO.Controllers
         // GET: Countries
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Country;
+            var applicationDbContext = _context.Countries;
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -33,7 +33,7 @@ namespace ELO.Controllers
         {
             IQueryCollection q = Request.Query;
 
-            var applicationDbContext = _context.Country
+            var applicationDbContext = _context.Countries
                 .Where(
                 c => (c.Exports.Count() > 0) && !new[]
                 {
@@ -63,8 +63,8 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var country = await _context.Country
-                .SingleOrDefaultAsync(m => m.ID == id);
+            var country = await _context.Countries
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (country == null)
             {
                 return NotFound();
@@ -84,7 +84,7 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Name,ISO2,ISO3")] Country country)
+        public async Task<IActionResult> Create([Bind("Id,Name,ISO2,ISO3")] Country country)
         {
             if (ModelState.IsValid)
             {
@@ -103,7 +103,7 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var country = await _context.Country.SingleOrDefaultAsync(m => m.ID == id);
+            var country = await _context.Countries.SingleOrDefaultAsync(m => m.Id == id);
             if (country == null)
             {
                 return NotFound();
@@ -116,9 +116,9 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Name,ISO2,ISO3")] Country country)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,ISO2,ISO3")] Country country)
         {
-            if (id != country.ID)
+            if (id != country.Id)
             {
                 return NotFound();
             }
@@ -132,7 +132,7 @@ namespace ELO.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CountryExists(country.ID))
+                    if (!CountryExists(country.Id))
                     {
                         return NotFound();
                     }
@@ -154,8 +154,8 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var country = await _context.Country
-                .SingleOrDefaultAsync(m => m.ID == id);
+            var country = await _context.Countries
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (country == null)
             {
                 return NotFound();
@@ -169,15 +169,15 @@ namespace ELO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var country = await _context.Country.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Country.Remove(country);
+            var country = await _context.Countries.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Countries.Remove(country);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CountryExists(int id)
         {
-            return _context.Country.Any(e => e.ID == id);
+            return _context.Countries.Any(e => e.Id == id);
         }
     }
 }

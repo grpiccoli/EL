@@ -58,12 +58,12 @@
                             @item.Country.Name
                         </td>
                         <td>
-                            @StringManipulations.ToRomanNumeral(item.Region.ID) @item.Region.Name
+                            @StringManipulations.ToRomanNumeral(item.Region.Id) @item.Region.Name
                         </td>
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.ID">Editar</a> |
-                            <a asp-action="Details" asp-route-id="@item.ID">Detalles</a> |
-                            <a asp-action="Delete" asp-route-id="@item.ID">Eliminar</a>
+                            <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                            <a asp-action="Details" asp-route-id="@item.Id">Detalles</a> |
+                            <a asp-action="Delete" asp-route-id="@item.Id">Eliminar</a>
                         </td>
                     </tr>
             }

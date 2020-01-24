@@ -23,7 +23,7 @@ namespace ELO.Controllers
         // GET: Arrivals
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Arrival.Include(a => a.Comuna);
+            var applicationDbContext = _context.Arrivals.Include(a => a.Commune);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -32,29 +32,29 @@ namespace ELO.Controllers
         {
             IQueryCollection q = Request.Query;
 
-            var applicationDbContext = _context.Arrival
-                .Include(a => a.Comuna)
-                .ThenInclude(c => c.Provincia)
+            var applicationDbContext = _context.Arrivals
+                .Include(a => a.Commune)
+                .ThenInclude(c => c.Province)
                 .ThenInclude(c => c.Region)
                 .Where(c => c.Species.Equals(Species.Erizo));
 
             string temp = "spe";
-            if (!String.IsNullOrEmpty(q["q"]))
+            if (!string.IsNullOrEmpty(q["q"]))
             {
                 temp = q["q"];
                 if(temp == "spa")
                 {
-                    applicationDbContext = _context.Arrival
-                        .Include(a => a.Comuna)
-                        .ThenInclude(c => c.Provincia)
+                    applicationDbContext = _context.Arrivals
+                        .Include(a => a.Commune)
+                        .ThenInclude(c => c.Province)
                         .ThenInclude(c => c.Region)
                         .Where(c => c.Species.Equals(Species.Almeja));
                 }
                 else if (temp == "spl")
                 {
-                    applicationDbContext = _context.Arrival
-                        .Include(a => a.Comuna)
-                        .ThenInclude(c => c.Provincia)
+                    applicationDbContext = _context.Arrivals
+                        .Include(a => a.Commune)
+                        .ThenInclude(c => c.Province)
                         .ThenInclude(c => c.Region)
                         .Where(c => c.Species.Equals(Species.Luga));
                 }
@@ -72,9 +72,9 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var arrival = await _context.Arrival
-                .Include(a => a.Comuna)
-                .SingleOrDefaultAsync(m => m.ID == id);
+            var arrival = await _context.Arrivals
+                .Include(a => a.Commune)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (arrival == null)
             {
                 return NotFound();
@@ -86,7 +86,7 @@ namespace ELO.Controllers
         // GET: Arrivals/Create
         public IActionResult Create()
         {
-            ViewData["ComunaID"] = new SelectList(_context.Set<Comuna>(), "ID", "ID");
+            ViewData["CommuneId"] = new SelectList(_context.Set<Commune>(), "Id", "Id");
             return View();
         }
 
@@ -95,7 +95,7 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ComunaID,Date,Species,Kg,Caleta")] Arrival arrival)
+        public async Task<IActionResult> Create([Bind("Id,CommuneId,Date,Species,Kg,Caleta")] Arrival arrival)
         {
             if (ModelState.IsValid)
             {
@@ -103,7 +103,7 @@ namespace ELO.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ComunaID"] = new SelectList(_context.Set<Comuna>(), "ID", "ID", arrival.ComunaID);
+            ViewData["CommuneId"] = new SelectList(_context.Set<Commune>(), "Id", "Id", arrival.CommuneId);
             return View(arrival);
         }
 
@@ -115,12 +115,12 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var arrival = await _context.Arrival.SingleOrDefaultAsync(m => m.ID == id);
+            var arrival = await _context.Arrivals.SingleOrDefaultAsync(m => m.Id == id);
             if (arrival == null)
             {
                 return NotFound();
             }
-            ViewData["ComunaID"] = new SelectList(_context.Set<Comuna>(), "ID", "ID", arrival.ComunaID);
+            ViewData["CommuneId"] = new SelectList(_context.Set<Commune>(), "Id", "Id", arrival.CommuneId);
             return View(arrival);
         }
 
@@ -129,9 +129,9 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,ComunaID,Date,Species,Kg,Caleta")] Arrival arrival)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CommuneId,Date,Species,Kg,Caleta")] Arrival arrival)
         {
-            if (id != arrival.ID)
+            if (id != arrival.Id)
             {
                 return NotFound();
             }
@@ -145,7 +145,7 @@ namespace ELO.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ArrivalExists(arrival.ID))
+                    if (!ArrivalExists(arrival.Id))
                     {
                         return NotFound();
                     }
@@ -156,7 +156,7 @@ namespace ELO.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ComunaID"] = new SelectList(_context.Set<Comuna>(), "ID", "ID", arrival.ComunaID);
+            ViewData["CommuneId"] = new SelectList(_context.Set<Commune>(), "Id", "Id", arrival.CommuneId);
             return View(arrival);
         }
 
@@ -168,9 +168,9 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var arrival = await _context.Arrival
-                .Include(a => a.Comuna)
-                .SingleOrDefaultAsync(m => m.ID == id);
+            var arrival = await _context.Arrivals
+                .Include(a => a.Commune)
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (arrival == null)
             {
                 return NotFound();
@@ -184,15 +184,15 @@ namespace ELO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var arrival = await _context.Arrival.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Arrival.Remove(arrival);
+            var arrival = await _context.Arrivals.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Arrivals.Remove(arrival);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ArrivalExists(int id)
         {
-            return _context.Arrival.Any(e => e.ID == id);
+            return _context.Arrivals.Any(e => e.Id == id);
         }
     }
 }

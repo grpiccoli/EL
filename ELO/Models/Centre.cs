@@ -20,8 +20,8 @@ namespace ELO.Models
         public virtual Company Company { get; set; }
 
         [Display(Name = "Commune")]
-        public int ComunaId { get; set; }
-        public virtual Comuna Comuna { get; set; }
+        public int CommuneId { get; set; }
+        public virtual Commune Commune { get; set; }
 
         //Attributes
         [Display(Name = "Nombre del Centro")]
@@ -54,6 +54,8 @@ namespace ELO.Models
         //[Display(Name = "Annual productions")]
         //public virtual ICollection<Production> Productions { get; set; }
     }
+
+    [System.Flags]
     public enum CentreType
     {
         [Display(Name = "Farm Concession")]

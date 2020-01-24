@@ -12,10 +12,10 @@
     <hr />
     <dl class="dl-horizontal">
         <dt>
-            @Html.DisplayNameFor(model => model.CountryID)
+            @Html.DisplayNameFor(model => model.CountryId)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.CountryID)
+            @Html.DisplayFor(model => model.CountryId)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Latitude)
@@ -36,27 +36,27 @@
             @Html.DisplayFor(model => model.Vertex)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Comuna)
+            @Html.DisplayNameFor(model => model.Commune)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Comuna.ID)
+            @Html.DisplayFor(model => model.Commune.Id)
         </dd>
         <dt>
-            @Html.DisplayNameFor(model => model.Provincia)
+            @Html.DisplayNameFor(model => model.Province)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Provincia.ID)
+            @Html.DisplayFor(model => model.Province.Id)
         </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Region)
         </dt>
         <dd>
-            @Html.DisplayFor(model => model.Region.ID)
+            @Html.DisplayFor(model => model.Region.Id)
         </dd>
     </dl>
     
     <form asp-action="Delete">
-        <input type="hidden" asp-for="ID" />
+        <input type="hidden" asp-for="Id" />
         <input type="submit" value="Delete" class="btn btn-default" /> |
         <a asp-action="Index">Back to List</a>
     </form>

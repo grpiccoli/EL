@@ -23,7 +23,7 @@ namespace ELO.Controllers
         // GET: Regions
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Region.ToListAsync());
+            return View(await _context.Regions.ToListAsync());
         }
 
         // GET: Regions
@@ -32,12 +32,12 @@ namespace ELO.Controllers
         {
             IQueryCollection q = Request.Query;
 
-            var applicationDbContext = _context.Region
-                .Where(r => r.ID != 0)
+            var applicationDbContext = _context.Regions
+                .Where(r => r.Id != 0)
                 .Include(r => r.Exports);
 
             string temp = "spe";
-            if (!String.IsNullOrEmpty(q["q"]))
+            if (!string.IsNullOrEmpty(q["q"]))
             {
                 temp = q["q"];
             }
@@ -54,8 +54,8 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var region = await _context.Region
-                .SingleOrDefaultAsync(m => m.ID == id);
+            var region = await _context.Regions
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (region == null)
             {
                 return NotFound();
@@ -75,7 +75,7 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,Surface,Pop2002,Pop2010,Name")] Region region)
+        public async Task<IActionResult> Create([Bind("Id,Surface,Pop2002,Pop2010,Name")] Region region)
         {
             if (ModelState.IsValid)
             {
@@ -94,7 +94,7 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var region = await _context.Region.SingleOrDefaultAsync(m => m.ID == id);
+            var region = await _context.Regions.SingleOrDefaultAsync(m => m.Id == id);
             if (region == null)
             {
                 return NotFound();
@@ -107,9 +107,9 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,Surface,Pop2002,Pop2010,Name")] Region region)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,Surface,Pop2002,Pop2010,Name")] Region region)
         {
-            if (id != region.ID)
+            if (id != region.Id)
             {
                 return NotFound();
             }
@@ -123,7 +123,7 @@ namespace ELO.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!RegionExists(region.ID))
+                    if (!RegionExists(region.Id))
                     {
                         return NotFound();
                     }
@@ -145,8 +145,8 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var region = await _context.Region
-                .SingleOrDefaultAsync(m => m.ID == id);
+            var region = await _context.Regions
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (region == null)
             {
                 return NotFound();
@@ -160,15 +160,15 @@ namespace ELO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var region = await _context.Region.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Region.Remove(region);
+            var region = await _context.Regions.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Regions.Remove(region);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool RegionExists(int id)
         {
-            return _context.Region.Any(e => e.ID == id);
+            return _context.Regions.Any(e => e.Id == id);
         }
     }
 }

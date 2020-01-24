@@ -9,9 +9,9 @@ namespace ELO.Models
     {
         [Display(Name = "Código de Región")]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
-        public string ID { get; set; }
+        public string Id { get; set; }
 
-        public int RegionID { get; set; }
+        public int RegionId { get; set; }
 
         public virtual Region Region { get; set; }
 
@@ -19,9 +19,9 @@ namespace ELO.Models
 
         public string Name { get; set; }
 
-        public Double Latitude { get; set; }
+        public double Latitude { get; set; }
 
-        public Double Longitude { get; set; }
+        public double Longitude { get; set; }
 
         public ICollection<Coordinate> Coordinates { get; set; }
     }

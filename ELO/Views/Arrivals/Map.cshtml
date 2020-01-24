@@ -36,11 +36,11 @@
             )
         {
             int bla;
-            if (!regions.TryGetValue(arrival.Comuna.Provincia.Region.MapCode, out bla))
+            if (!regions.TryGetValue(arrival.Commune.Province.Region.MapCode, out bla))
             {
-                regions[arrival.Comuna.Provincia.Region.MapCode] = 0;
+                regions[arrival.Commune.Province.Region.MapCode] = 0;
             }
-            regions[arrival.Comuna.Provincia.Region.MapCode] += arrival.Kg;
+            regions[arrival.Commune.Province.Region.MapCode] += arrival.Kg;
         }
     }
     List<string> ble = new List<string> { };

@@ -11,7 +11,6 @@ namespace ELO.Data
             : base(options)
         {
         }
-
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -26,48 +25,34 @@ namespace ELO.Data
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<AppUser>()
-                .HasMany(e => e.Claims)
+            builder.Entity<AppUser>(u => {
+                u.HasMany(e => e.Claims)
                 .WithOne()
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
 
-            builder.Entity<AppUser>()
-                .HasMany(e => e.Roles)
+                u.HasMany(e => e.Roles)
                 .WithOne()
                 .HasForeignKey(e => e.UserId)
                 .IsRequired()
                 .OnDelete(DeleteBehavior.Cascade);
+            });
         }
-
         public DbSet<IdentityUserClaim<string>> IdentityUserClaims { get; set; }
         public DbSet<IdentityUserRole<string>> IdentityUserRoles { get; set; }
-
         public DbSet<AppUserRole> AppUserRole { get; set; }
-
         public DbSet<AppUser> AppUser { get; set; }
-
         public DbSet<AppRole> AppRole { get; set; }
-
-        public DbSet<Company> Company { get; set; }
-
-        public DbSet<Continent> Continent { get; set; }
-
-        public DbSet<Country> Country { get; set; }
-
-        public DbSet<Arrival> Arrival { get; set; }
-
-        public DbSet<Export> Export { get; set; }
-
-        public DbSet<Coordinate> Coordinate { get; set; }
-
-        public DbSet<Region> Region { get; set; }
-
-        public DbSet<Provincia> Provincia { get; set; }
-
-        public DbSet<Comuna> Comuna { get; set; }
-
-        public DbSet<Station> Station { get; set; }
+        public DbSet<Company> Companies { get; set; }
+        public DbSet<Continent> Continents { get; set; }
+        public DbSet<Country> Countries { get; set; }
+        public DbSet<Arrival> Arrivals { get; set; }
+        public DbSet<Export> Exports { get; set; }
+        public DbSet<Coordinate> Coordinates { get; set; }
+        public DbSet<Region> Regions { get; set; }
+        public DbSet<Province> Provinces { get; set; }
+        public DbSet<Commune> Communes { get; set; }
+        public DbSet<Station> Stations { get; set; }
     }
 }

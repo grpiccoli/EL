@@ -22,7 +22,7 @@ namespace ELO.Controllers
         // GET: Coordinates
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Coordinate.Include(c => c.Comuna).Include(c => c.Provincia).Include(c => c.Region);
+            var applicationDbContext = _context.Coordinates.Include(c => c.Commune).Include(c => c.Province).Include(c => c.Region);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -34,11 +34,11 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var coordinate = await _context.Coordinate
-                .Include(c => c.Comuna)
-                .Include(c => c.Provincia)
+            var coordinate = await _context.Coordinates
+                .Include(c => c.Commune)
+                .Include(c => c.Province)
                 .Include(c => c.Region)
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (coordinate == null)
             {
                 return NotFound();
@@ -50,9 +50,9 @@ namespace ELO.Controllers
         // GET: Coordinates/Create
         public IActionResult Create()
         {
-            ViewData["ComunaID"] = new SelectList(_context.Set<Comuna>(), "ID", "ID");
-            ViewData["ProvinciaID"] = new SelectList(_context.Set<Provincia>(), "ID", "ID");
-            ViewData["RegionID"] = new SelectList(_context.Set<Region>(), "ID", "ID");
+            ViewData["CommuneId"] = new SelectList(_context.Set<Commune>(), "Id", "Id");
+            ViewData["ProvinceId"] = new SelectList(_context.Set<Province>(), "Id", "Id");
+            ViewData["RegionId"] = new SelectList(_context.Set<Region>(), "Id", "Id");
             return View();
         }
 
@@ -61,7 +61,7 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,ComunaID,ProvinciaID,RegionID,CountryID,Latitude,Longitude,Vertex")] Coordinate coordinate)
+        public async Task<IActionResult> Create([Bind("Id,CommuneId,ProvinceId,RegionId,CountryId,Latitude,Longitude,Vertex")] Coordinate coordinate)
         {
             if (ModelState.IsValid)
             {
@@ -69,9 +69,9 @@ namespace ELO.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ComunaID"] = new SelectList(_context.Set<Comuna>(), "ID", "ID", coordinate.ComunaID);
-            ViewData["ProvinciaID"] = new SelectList(_context.Set<Provincia>(), "ID", "ID", coordinate.ProvinciaID);
-            ViewData["RegionID"] = new SelectList(_context.Set<Region>(), "ID", "ID", coordinate.RegionID);
+            ViewData["CommuneId"] = new SelectList(_context.Set<Commune>(), "Id", "Id", coordinate.CommuneId);
+            ViewData["ProvinceId"] = new SelectList(_context.Set<Province>(), "Id", "Id", coordinate.ProvinceId);
+            ViewData["RegionId"] = new SelectList(_context.Set<Region>(), "Id", "Id", coordinate.RegionId);
             return View(coordinate);
         }
 
@@ -83,14 +83,14 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var coordinate = await _context.Coordinate.SingleOrDefaultAsync(m => m.ID == id);
+            var coordinate = await _context.Coordinates.SingleOrDefaultAsync(m => m.Id == id);
             if (coordinate == null)
             {
                 return NotFound();
             }
-            ViewData["ComunaID"] = new SelectList(_context.Set<Comuna>(), "ID", "ID", coordinate.ComunaID);
-            ViewData["ProvinciaID"] = new SelectList(_context.Set<Provincia>(), "ID", "ID", coordinate.ProvinciaID);
-            ViewData["RegionID"] = new SelectList(_context.Set<Region>(), "ID", "ID", coordinate.RegionID);
+            ViewData["CommuneId"] = new SelectList(_context.Set<Commune>(), "Id", "Id", coordinate.CommuneId);
+            ViewData["ProvinceId"] = new SelectList(_context.Set<Province>(), "Id", "Id", coordinate.ProvinceId);
+            ViewData["RegionId"] = new SelectList(_context.Set<Region>(), "Id", "Id", coordinate.RegionId);
             return View(coordinate);
         }
 
@@ -99,9 +99,9 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,ComunaID,ProvinciaID,RegionID,CountryID,Latitude,Longitude,Vertex")] Coordinate coordinate)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,CommuneId,ProvinceId,RegionId,CountryId,Latitude,Longitude,Vertex")] Coordinate coordinate)
         {
-            if (id != coordinate.ID)
+            if (id != coordinate.Id)
             {
                 return NotFound();
             }
@@ -115,7 +115,7 @@ namespace ELO.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!CoordinateExists(coordinate.ID))
+                    if (!CoordinateExists(coordinate.Id))
                     {
                         return NotFound();
                     }
@@ -126,9 +126,9 @@ namespace ELO.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["ComunaID"] = new SelectList(_context.Set<Comuna>(), "ID", "ID", coordinate.ComunaID);
-            ViewData["ProvinciaID"] = new SelectList(_context.Set<Provincia>(), "ID", "ID", coordinate.ProvinciaID);
-            ViewData["RegionID"] = new SelectList(_context.Set<Region>(), "ID", "ID", coordinate.RegionID);
+            ViewData["CommuneId"] = new SelectList(_context.Set<Commune>(), "Id", "Id", coordinate.CommuneId);
+            ViewData["ProvinceId"] = new SelectList(_context.Set<Province>(), "Id", "Id", coordinate.ProvinceId);
+            ViewData["RegionId"] = new SelectList(_context.Set<Region>(), "Id", "Id", coordinate.RegionId);
             return View(coordinate);
         }
 
@@ -140,11 +140,11 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var coordinate = await _context.Coordinate
-                .Include(c => c.Comuna)
-                .Include(c => c.Provincia)
+            var coordinate = await _context.Coordinates
+                .Include(c => c.Commune)
+                .Include(c => c.Province)
                 .Include(c => c.Region)
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (coordinate == null)
             {
                 return NotFound();
@@ -158,15 +158,15 @@ namespace ELO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var coordinate = await _context.Coordinate.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Coordinate.Remove(coordinate);
+            var coordinate = await _context.Coordinates.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Coordinates.Remove(coordinate);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool CoordinateExists(int id)
         {
-            return _context.Coordinate.Any(e => e.ID == id);
+            return _context.Coordinates.Any(e => e.Id == id);
         }
     }
 }

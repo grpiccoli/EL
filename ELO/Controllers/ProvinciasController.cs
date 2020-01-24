@@ -22,7 +22,7 @@ namespace ELO.Controllers
         // GET: Provincias
         public async Task<IActionResult> Index()
         {
-            var applicationDbContext = _context.Provincia.Include(p => p.Region);
+            var applicationDbContext = _context.Provinces.Include(p => p.Region);
             return View(await applicationDbContext.ToListAsync());
         }
 
@@ -34,9 +34,9 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var provincia = await _context.Provincia
+            var provincia = await _context.Provinces
                 .Include(p => p.Region)
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (provincia == null)
             {
                 return NotFound();
@@ -48,7 +48,7 @@ namespace ELO.Controllers
         // GET: Provincias/Create
         public IActionResult Create()
         {
-            ViewData["RegionID"] = new SelectList(_context.Region, "ID", "ID");
+            ViewData["RegionId"] = new SelectList(_context.Regions, "Id", "Id");
             return View();
         }
 
@@ -57,16 +57,16 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("ID,RegionID,Name,Surface,Population")] Provincia provincia)
+        public async Task<IActionResult> Create([Bind("Id,RegionId,Name,Surface,Population")] Province province)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(provincia);
+                await _context.AddAsync(province);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RegionID"] = new SelectList(_context.Region, "ID", "ID", provincia.RegionID);
-            return View(provincia);
+            ViewData["RegionId"] = new SelectList(_context.Regions, "Id", "Id", province.RegionId);
+            return View(province);
         }
 
         // GET: Provincias/Edit/5
@@ -77,12 +77,12 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var provincia = await _context.Provincia.SingleOrDefaultAsync(m => m.ID == id);
+            var provincia = await _context.Provinces.SingleOrDefaultAsync(m => m.Id == id);
             if (provincia == null)
             {
                 return NotFound();
             }
-            ViewData["RegionID"] = new SelectList(_context.Region, "ID", "ID", provincia.RegionID);
+            ViewData["RegionId"] = new SelectList(_context.Regions, "Id", "Id", provincia.RegionId);
             return View(provincia);
         }
 
@@ -91,9 +91,9 @@ namespace ELO.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("ID,RegionID,Name,Surface,Population")] Provincia provincia)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,RegionId,Name,Surface,Population")] Province province)
         {
-            if (id != provincia.ID)
+            if (id != province.Id)
             {
                 return NotFound();
             }
@@ -102,12 +102,12 @@ namespace ELO.Controllers
             {
                 try
                 {
-                    _context.Update(provincia);
+                    _context.Update(province);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!ProvinciaExists(provincia.ID))
+                    if (!ProvinciaExists(province.Id))
                     {
                         return NotFound();
                     }
@@ -118,8 +118,8 @@ namespace ELO.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["RegionID"] = new SelectList(_context.Region, "ID", "ID", provincia.RegionID);
-            return View(provincia);
+            ViewData["RegionId"] = new SelectList(_context.Regions, "Id", "Id", province.RegionId);
+            return View(province);
         }
 
         // GET: Provincias/Delete/5
@@ -130,9 +130,9 @@ namespace ELO.Controllers
                 return NotFound();
             }
 
-            var provincia = await _context.Provincia
+            var provincia = await _context.Provinces
                 .Include(p => p.Region)
-                .SingleOrDefaultAsync(m => m.ID == id);
+                .SingleOrDefaultAsync(m => m.Id == id);
             if (provincia == null)
             {
                 return NotFound();
@@ -146,15 +146,15 @@ namespace ELO.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var provincia = await _context.Provincia.SingleOrDefaultAsync(m => m.ID == id);
-            _context.Provincia.Remove(provincia);
+            var provincia = await _context.Provinces.SingleOrDefaultAsync(m => m.Id == id);
+            _context.Provinces.Remove(provincia);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
 
         private bool ProvinciaExists(int id)
         {
-            return _context.Provincia.Any(e => e.ID == id);
+            return _context.Provinces.Any(e => e.Id == id);
         }
     }
 }

@@ -1,10 +1,20 @@
 [
   {
     "outputFileName": "wwwroot/css/elo.min.css",
-    "inputFiles": [ "wwwroot/css/elo.css" ]
+    "inputFiles": [
+      "wwwroot/css/elo.css"
+    ]
   },
   {
     "outputFileName": "wwwroot/css/elo.min.js",
-    "inputFiles": [ "wwwroot/css/elo.js" ]
+    "inputFiles": [
+      "wwwroot/css/elo.js"
+    ]
+  },
+  {
+    "outputFileName": "wwwroot/js/modal-action.min.js",
+    "inputFiles": [
+      "wwwroot/js/modal-action.js"
+    ]
   }
 ]

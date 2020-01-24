@@ -57,7 +57,7 @@ namespace ELO.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Company",
+                name: "Companies",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false),
@@ -67,14 +67,14 @@ namespace ELO.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Company", x => x.Id);
+                    table.PrimaryKey("PK_Companies", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Continent",
+                name: "Continents",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
                     ISO = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Latitude = table.Column<double>(nullable: false),
@@ -82,14 +82,14 @@ namespace ELO.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Continent", x => x.ID);
+                    table.PrimaryKey("PK_Continents", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Region",
+                name: "Regions",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
                     Surface = table.Column<int>(nullable: false),
                     Pop2002 = table.Column<int>(nullable: false),
                     Pop2010 = table.Column<int>(nullable: false),
@@ -98,7 +98,7 @@ namespace ELO.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Region", x => x.ID);
+                    table.PrimaryKey("PK_Regions", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -237,19 +237,19 @@ namespace ELO.Migrations
                 {
                     table.PrimaryKey("PK_Publication", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Publication_Company_CompanyId",
+                        name: "FK_Publication_Companies_CompanyId",
                         column: x => x.CompanyId,
-                        principalTable: "Company",
+                        principalTable: "Companies",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Country",
+                name: "Countries",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false),
-                    ContinentID = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
+                    ContinentId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     ISO2 = table.Column<string>(nullable: true),
                     ISO3 = table.Column<string>(nullable: true),
@@ -259,42 +259,42 @@ namespace ELO.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Country", x => x.ID);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Country_Continent_ContinentID",
-                        column: x => x.ContinentID,
-                        principalTable: "Continent",
-                        principalColumn: "ID",
+                        name: "FK_Countries_Continents_ContinentId",
+                        column: x => x.ContinentId,
+                        principalTable: "Continents",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Provincia",
+                name: "Provinces",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false),
-                    RegionID = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
+                    RegionId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Surface = table.Column<int>(nullable: false),
                     Population = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Provincia", x => x.ID);
+                    table.PrimaryKey("PK_Provinces", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Provincia_Region_RegionID",
-                        column: x => x.RegionID,
-                        principalTable: "Region",
-                        principalColumn: "ID",
+                        name: "FK_Provinces_Regions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "Regions",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Station",
+                name: "Stations",
                 columns: table => new
                 {
-                    ID = table.Column<string>(nullable: false),
-                    RegionID = table.Column<int>(nullable: false),
+                    Id = table.Column<string>(nullable: false),
+                    RegionId = table.Column<int>(nullable: false),
                     Area = table.Column<string>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     Latitude = table.Column<double>(nullable: false),
@@ -302,12 +302,12 @@ namespace ELO.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Station", x => x.ID);
+                    table.PrimaryKey("PK_Stations", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Station_Region_RegionID",
-                        column: x => x.RegionID,
-                        principalTable: "Region",
-                        principalColumn: "ID",
+                        name: "FK_Stations_Regions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "Regions",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -333,13 +333,13 @@ namespace ELO.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Export",
+                name: "Exports",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    RegionID = table.Column<int>(nullable: false),
-                    CountryID = table.Column<int>(nullable: false),
+                    RegionId = table.Column<int>(nullable: false),
+                    CountryId = table.Column<int>(nullable: false),
                     Species = table.Column<int>(nullable: false),
                     Processing = table.Column<int>(nullable: false),
                     Date = table.Column<DateTime>(nullable: false),
@@ -348,49 +348,49 @@ namespace ELO.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Export", x => x.ID);
+                    table.PrimaryKey("PK_Exports", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Export_Country_CountryID",
-                        column: x => x.CountryID,
-                        principalTable: "Country",
-                        principalColumn: "ID",
+                        name: "FK_Exports_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Export_Region_RegionID",
-                        column: x => x.RegionID,
-                        principalTable: "Region",
-                        principalColumn: "ID",
+                        name: "FK_Exports_Regions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "Regions",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comuna",
+                name: "Communes",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false),
-                    ProvinciaID = table.Column<int>(nullable: false),
+                    Id = table.Column<int>(nullable: false),
+                    ProvinceId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     DE = table.Column<int>(nullable: false),
                     CS = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comuna", x => x.ID);
+                    table.PrimaryKey("PK_Communes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comuna_Provincia_ProvinciaID",
-                        column: x => x.ProvinciaID,
-                        principalTable: "Provincia",
-                        principalColumn: "ID",
+                        name: "FK_Communes_Provinces_ProvinceId",
+                        column: x => x.ProvinceId,
+                        principalTable: "Provinces",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Arrival",
+                name: "Arrivals",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ComunaID = table.Column<int>(nullable: false),
+                    CommuneId = table.Column<int>(nullable: false),
                     Caleta = table.Column<string>(nullable: true),
                     Date = table.Column<DateTime>(nullable: false),
                     Species = table.Column<int>(nullable: false),
@@ -398,12 +398,12 @@ namespace ELO.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Arrival", x => x.ID);
+                    table.PrimaryKey("PK_Arrivals", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Arrival_Comuna_ComunaID",
-                        column: x => x.ComunaID,
-                        principalTable: "Comuna",
-                        principalColumn: "ID",
+                        name: "FK_Arrivals_Communes_CommuneId",
+                        column: x => x.CommuneId,
+                        principalTable: "Communes",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -413,7 +413,7 @@ namespace ELO.Migrations
                 {
                     Id = table.Column<int>(nullable: false),
                     CompanyId = table.Column<int>(nullable: false),
-                    ComunaId = table.Column<int>(nullable: false),
+                    CommuneId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Acronym = table.Column<string>(nullable: true),
                     FolioRNA = table.Column<int>(nullable: true),
@@ -427,30 +427,30 @@ namespace ELO.Migrations
                 {
                     table.PrimaryKey("PK_Centre", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Centre_Company_CompanyId",
-                        column: x => x.CompanyId,
-                        principalTable: "Company",
+                        name: "FK_Centre_Communes_CommuneId",
+                        column: x => x.CommuneId,
+                        principalTable: "Communes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Centre_Comuna_ComunaId",
-                        column: x => x.ComunaId,
-                        principalTable: "Comuna",
-                        principalColumn: "ID",
+                        name: "FK_Centre_Companies_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Companies",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Coordinate",
+                name: "Coordinates",
                 columns: table => new
                 {
-                    ID = table.Column<int>(nullable: false)
+                    Id = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    ComunaID = table.Column<int>(nullable: true),
-                    ProvinciaID = table.Column<int>(nullable: true),
-                    RegionID = table.Column<int>(nullable: true),
-                    CountryID = table.Column<int>(nullable: true),
-                    StationID = table.Column<string>(nullable: true),
+                    CommuneId = table.Column<int>(nullable: true),
+                    ProvinceId = table.Column<int>(nullable: true),
+                    RegionId = table.Column<int>(nullable: true),
+                    CountryId = table.Column<int>(nullable: true),
+                    StationId = table.Column<string>(nullable: true),
                     Latitude = table.Column<double>(nullable: false),
                     Longitude = table.Column<double>(nullable: false),
                     Vertex = table.Column<int>(nullable: false),
@@ -458,49 +458,49 @@ namespace ELO.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Coordinate", x => x.ID);
+                    table.PrimaryKey("PK_Coordinates", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Coordinate_Centre_CentreId",
+                        name: "FK_Coordinates_Centre_CentreId",
                         column: x => x.CentreId,
                         principalTable: "Centre",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Coordinate_Comuna_ComunaID",
-                        column: x => x.ComunaID,
-                        principalTable: "Comuna",
-                        principalColumn: "ID",
+                        name: "FK_Coordinates_Communes_CommuneId",
+                        column: x => x.CommuneId,
+                        principalTable: "Communes",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Coordinate_Country_CountryID",
-                        column: x => x.CountryID,
-                        principalTable: "Country",
-                        principalColumn: "ID",
+                        name: "FK_Coordinates_Countries_CountryId",
+                        column: x => x.CountryId,
+                        principalTable: "Countries",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Coordinate_Provincia_ProvinciaID",
-                        column: x => x.ProvinciaID,
-                        principalTable: "Provincia",
-                        principalColumn: "ID",
+                        name: "FK_Coordinates_Provinces_ProvinceId",
+                        column: x => x.ProvinceId,
+                        principalTable: "Provinces",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Coordinate_Region_RegionID",
-                        column: x => x.RegionID,
-                        principalTable: "Region",
-                        principalColumn: "ID",
+                        name: "FK_Coordinates_Regions_RegionId",
+                        column: x => x.RegionId,
+                        principalTable: "Regions",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Coordinate_Station_StationID",
-                        column: x => x.StationID,
-                        principalTable: "Station",
-                        principalColumn: "ID",
+                        name: "FK_Coordinates_Stations_StationId",
+                        column: x => x.StationId,
+                        principalTable: "Stations",
+                        principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Arrival_ComunaID",
-                table: "Arrival",
-                column: "ComunaID");
+                name: "IX_Arrivals_CommuneId",
+                table: "Arrivals",
+                column: "CommuneId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
@@ -552,69 +552,69 @@ namespace ELO.Migrations
                 column: "PublicationId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Centre_CommuneId",
+                table: "Centre",
+                column: "CommuneId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Centre_CompanyId",
                 table: "Centre",
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Centre_ComunaId",
-                table: "Centre",
-                column: "ComunaId");
+                name: "IX_Communes_ProvinceId",
+                table: "Communes",
+                column: "ProvinceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comuna_ProvinciaID",
-                table: "Comuna",
-                column: "ProvinciaID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Coordinate_CentreId",
-                table: "Coordinate",
+                name: "IX_Coordinates_CentreId",
+                table: "Coordinates",
                 column: "CentreId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coordinate_ComunaID",
-                table: "Coordinate",
-                column: "ComunaID");
+                name: "IX_Coordinates_CommuneId",
+                table: "Coordinates",
+                column: "CommuneId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coordinate_CountryID",
-                table: "Coordinate",
-                column: "CountryID");
+                name: "IX_Coordinates_CountryId",
+                table: "Coordinates",
+                column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coordinate_ProvinciaID",
-                table: "Coordinate",
-                column: "ProvinciaID");
+                name: "IX_Coordinates_ProvinceId",
+                table: "Coordinates",
+                column: "ProvinceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coordinate_RegionID",
-                table: "Coordinate",
-                column: "RegionID");
+                name: "IX_Coordinates_RegionId",
+                table: "Coordinates",
+                column: "RegionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Coordinate_StationID",
-                table: "Coordinate",
-                column: "StationID");
+                name: "IX_Coordinates_StationId",
+                table: "Coordinates",
+                column: "StationId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Country_ContinentID",
-                table: "Country",
-                column: "ContinentID");
+                name: "IX_Countries_ContinentId",
+                table: "Countries",
+                column: "ContinentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Export_CountryID",
-                table: "Export",
-                column: "CountryID");
+                name: "IX_Exports_CountryId",
+                table: "Exports",
+                column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Export_RegionID",
-                table: "Export",
-                column: "RegionID");
+                name: "IX_Exports_RegionId",
+                table: "Exports",
+                column: "RegionId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Provincia_RegionID",
-                table: "Provincia",
-                column: "RegionID");
+                name: "IX_Provinces_RegionId",
+                table: "Provinces",
+                column: "RegionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Publication_CompanyId",
@@ -622,15 +622,15 @@ namespace ELO.Migrations
                 column: "CompanyId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Station_RegionID",
-                table: "Station",
-                column: "RegionID");
+                name: "IX_Stations_RegionId",
+                table: "Stations",
+                column: "RegionId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Arrival");
+                name: "Arrivals");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoleClaims");
@@ -651,10 +651,10 @@ namespace ELO.Migrations
                 name: "Author");
 
             migrationBuilder.DropTable(
-                name: "Coordinate");
+                name: "Coordinates");
 
             migrationBuilder.DropTable(
-                name: "Export");
+                name: "Exports");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
@@ -669,25 +669,25 @@ namespace ELO.Migrations
                 name: "Centre");
 
             migrationBuilder.DropTable(
-                name: "Station");
+                name: "Stations");
 
             migrationBuilder.DropTable(
-                name: "Country");
+                name: "Countries");
 
             migrationBuilder.DropTable(
-                name: "Company");
+                name: "Communes");
 
             migrationBuilder.DropTable(
-                name: "Comuna");
+                name: "Companies");
 
             migrationBuilder.DropTable(
-                name: "Continent");
+                name: "Continents");
 
             migrationBuilder.DropTable(
-                name: "Provincia");
+                name: "Provinces");
 
             migrationBuilder.DropTable(
-                name: "Region");
+                name: "Regions");
         }
     }
 }
